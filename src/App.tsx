@@ -5,9 +5,8 @@ import moment from 'moment';
 
 function App() {
     return (
-        <ResponsiveContainer minWidth={310} minHeight={600} height="80%">
+        <ResponsiveContainer width = "99%" aspect={2}>
             <LineChart
-                width={250}
                 data={data}
                 margin={{ top: 30, right: 50, left: 30, bottom: 30 }} >
                     <CartesianGrid strokeDasharray="3 3" />
