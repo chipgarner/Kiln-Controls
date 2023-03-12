@@ -16,11 +16,12 @@ function App() {
                            domain={["dataMin", "dataMax"]}
                            tickFormatter = {(unixTime) => moment(unixTime).format('HH:mm:ss Do')}
                            type="number"/>
-                    <YAxis label={{ value: 'Temperature', angle: -90, position: 'insideLeft' }}/>
-                    <Tooltip />
+                    <YAxis yAxisId="left-axis" label={{ value: 'Temperature', angle: -90, position: 'insideLeft' }}/>
+                    <YAxis yAxisId="right-axis" orientation="right" />
+                    <Tooltip />yAxisId="right-axis" orientation="right" 
                     <Legend verticalAlign="top" height={36}/>
-                    <Line type="linear" dataKey="heat_factor" stroke="#8884d8" />
-                    <Line type="linear" dataKey="temperature" stroke="#ff9999" />
+                    <Line yAxisId="right-axis" orientation="right" type="linear" dataKey="heat_factor" stroke="#8884d8" />
+                    <Line yAxisId="left-axis" type="linear" dataKey="temperature" stroke="#ff9999" />
             </LineChart>
         </ResponsiveContainer>
     );}
