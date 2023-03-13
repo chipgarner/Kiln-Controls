@@ -2,9 +2,15 @@ import React, {useEffect, useState} from 'react';
 import useWebSocket, { ReadyState } from 'react-use-websocket';
 import MainChart from "./MainChart";
 import "./App.css";
-import data from "./kiln_data";
 
-const WS_URL = 'ws://127.0.0.1:8081/status';
+// Example:  const WS_URL = 'ws://127.0.0.1:8081/status';
+// This is needed if the server is running on a different machine.
+let server: string = window.location.href
+server = server.split(":")[1]
+server = server.split(":")[0]
+console.log(server)
+const WS_URL = 'ws:' + server + ':8081/status';
+console.log(WS_URL)
 
 function App() {
     const { sendJsonMessage, readyState } = useWebSocket(WS_URL, {
