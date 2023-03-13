@@ -7,6 +7,7 @@ import React from "react";
 function MainChart() {
     return (
         <div  className="wrapper">
+            <h3> Kiln Status </h3>
             <ResponsiveContainer width = "99%" aspect={2} >
                 <LineChart
                     data={data}
