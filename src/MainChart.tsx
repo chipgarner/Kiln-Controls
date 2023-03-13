@@ -28,8 +28,19 @@ function MainChart(tempData: { time_ms: number; temperature: number; heat_factor
                                position: 'insideRight' }}/>
                     <Tooltip />yAxisId="right-axis" orientation="right"
                     <Legend verticalAlign="top" height={36}/>
-                    <Line yAxisId="right-axis" orientation="right" type="linear" dataKey="heat_factor" stroke="#8884d8" />
-                    <Line yAxisId="left-axis" type="linear" dataKey="temperature" stroke="#ff9999" />
+                    <Line yAxisId="right-axis"
+                          orientation="right"
+                          strokeWidth={3}
+                          // isAnimationActive={false}
+                          type="linear"
+                          dataKey="heat_factor"
+                          stroke="#8884ff" />
+                    <Line yAxisId="left-axis"
+                          type="linear"
+                          // isAnimationActive={false}
+                          strokeWidth={3}
+                          dataKey="temperature"
+                          stroke="#ff5555" />
                 </LineChart>
             </ResponsiveContainer>
         </div>
