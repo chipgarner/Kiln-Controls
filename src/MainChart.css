@@ -1,0 +1,14 @@
+.wrapper {
+    background-color: aliceblue;
+    width: 70%;
+    height: 70%;
+    box-shadow: 20px 8px 20px grey;
+    -webkit-transition:  box-shadow .2s ease-in;
+    display:block;
+    margin: 20px auto;
+}
+
+.wrapper:hover{
+    box-shadow: 30px 8px 30px grey;
+    -webkit-transition:  box-shadow .2s ease-in;
+}
