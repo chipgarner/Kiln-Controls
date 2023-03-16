@@ -4,12 +4,13 @@ import MainChart from "./MainChart";
 import "./App.css";
 
 // Example:  const WS_URL = 'ws://127.0.0.1:8081/status';
-// This is needed if the server is running on a different machine.
+// This is needed if the server is running on a different machine than the browser.
 let server: string = window.location.href
 server = server.split(":")[1]
 server = server.split(":")[0]
 console.log(server)
 const WS_URL = 'ws:' + server + ':8081/status';
+// const WS_URL = 'ws://172.20.10.9:8081/status';
 console.log(WS_URL)
 
 function App() {
@@ -33,14 +34,25 @@ function App() {
 
     const [tempData, setTempData] = useState<
         { time_ms: number, temperature: number, heat_factor: number }[]  >([]);
+    const [Profile, setProfile] = useState<
+        { name: string, data: Array<Array<number>> }[]  >([]);
 
     const processMessages = (event: { data: string; }) => {
-        console.log(event.data.length);
-        if (event.data.length > 40) {
+        console.debug("Messag : " + event.data);
+        try {
             const response = JSON.parse(event.data);
-            console.log(response);
-            setTempData(tempData => [...tempData, ...response]);
-        }};
+            console.debug(response);
+            if (response.profile) {
+                console.log('Incoming rofile: ' + response.profile);
+                setProfile(Profile => [...Profile, ...response.profile]);
+            }
+            if (response[0].time_ms) {
+                setTempData(tempData => [...tempData, ...response]);
+            }
+        } catch (e) {
+            console.warn("Not a JSON message");
+        }
+    };
 
     return (
         <div className="App">

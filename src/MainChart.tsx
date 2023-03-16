@@ -3,7 +3,13 @@ import './MainChart.css';
 import moment from "moment/moment";
 import React from "react";
 
-function MainChart(tempData: { time_ms: number; temperature: number; heat_factor: number; }[]) {
+type tempDataProps = {
+    time_ms: number;
+    temperature: number;
+    heat_factor: number;
+}[];
+
+function MainChart(tempData: tempDataProps) {
     return (
         <div  className="wrapper">
             <h3> Kiln Status </h3>
@@ -23,7 +29,7 @@ function MainChart(tempData: { time_ms: number; temperature: number; heat_factor
                                position: 'insideLeft' }}/>
                     <YAxis yAxisId="right-axis"
                            orientation="right"
-                           label={{ value: 'Heat Facgtor',
+                           label={{ value: 'Heat Factor',
                                angle: 90,
                                position: 'insideRight' }}/>
                     <Tooltip />yAxisId="right-axis" orientation="right"
@@ -31,16 +37,18 @@ function MainChart(tempData: { time_ms: number; temperature: number; heat_factor
                     <Line yAxisId="right-axis"
                           orientation="right"
                           strokeWidth={3}
-                          // isAnimationActive={false}
+                          isAnimationActive={false}
                           type="linear"
                           dataKey="heat_factor"
-                          stroke="#8884ff" />
+                          stroke="#8884ff"
+                          dot={false} />
                     <Line yAxisId="left-axis"
                           type="linear"
-                          // isAnimationActive={false}
+                          isAnimationActive={false}
                           strokeWidth={3}
                           dataKey="temperature"
-                          stroke="#ff5555" />
+                          stroke="#ff5555"
+                          dot={false} />
                 </LineChart>
             </ResponsiveContainer>
         </div>
