@@ -34,19 +34,20 @@ function App() {
 
     const [tempData, setTempData] = useState<
         { time_ms: number, temperature: number, heat_factor: number }[]  >([]);
-    const [Profile, setProfile] = useState<
-        { name: string, data: Array<Array<number>> }[]  >([]);
+    const [profileData, setProfile] = useState<
+        {  time_ms: number, temperature: number }[]  >([]);
 
     const processMessages = (event: { data: string; }) => {
-        console.debug("Messag : " + event.data);
+        console.debug("Message : " + event.data);
         try {
             const response = JSON.parse(event.data);
             console.debug(response);
             if (response.profile) {
-                console.log('Incoming rofile: ' + response.profile);
+                console.log('Incoming profile: ' + response.profile);
                 setProfile(Profile => [...Profile, ...response.profile]);
             }
             if (response[0].time_ms) {
+                console.debug('Incoming temps: ' + response)
                 setTempData(tempData => [...tempData, ...response]);
             }
         } catch (e) {
@@ -56,7 +57,7 @@ function App() {
 
     return (
         <div className="App">
-            {MainChart(tempData)}
+            {MainChart(tempData, profileData)}
         </div>
      );}
 
