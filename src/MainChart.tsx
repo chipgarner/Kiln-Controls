@@ -1,6 +1,7 @@
 import {CartesianGrid,
     ComposedChart,
     Legend,
+    Area,
     Bar,
     BarChart,
     Line,
@@ -38,7 +39,8 @@ function MainChart(tempData: tempDataProps, profileData: profileDataProps) {
                            label={{ value: 'Time', position: 'bottom'}}
                            domain={["dataMin", "dataMax"]}
                            tickFormatter = {(unixTime) => moment(unixTime).format('HH:mm:ss Do')}
-                           type="number"/>
+                           type="number"
+                           includeHidden={true}/>
                     <YAxis yAxisId="left-axis"
                            label={{ value: 'Temperature',
                                angle: -90,
@@ -50,10 +52,11 @@ function MainChart(tempData: tempDataProps, profileData: profileDataProps) {
                                position: 'insideRight' }}/>
                     <Tooltip />yAxisId="right-axis" orientation="right"
                     <Legend verticalAlign="top" height={36}/>
-                    <Bar yAxisId="right-axis"
+                    <Area yAxisId="right-axis"
                           orientation="right"
                           isAnimationActive={false}
                           dataKey="heat_factor"
+                          stroke="rgba(44, 117, 255, 0.3)"
                           fill="rgba(44, 117, 255, 0.3)" />
                     <Line yAxisId="left-axis"
                           type="linear"
