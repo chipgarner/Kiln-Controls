@@ -54,22 +54,22 @@ function MainChart(tempData: tempDataProps, profileData: profileDataProps) {
                           orientation="right"
                           isAnimationActive={false}
                           dataKey="heat_factor"
-                          fill="rgba(120, 120, 255, 0.2)" />
+                          fill="rgba(44, 117, 255, 0.3)" />
                     <Line yAxisId="left-axis"
                           type="linear"
                           isAnimationActive={false}
                           strokeWidth={3}
                           dataKey="temperature"
-                          stroke="#ff5555"
+                          stroke="#880000"
                           dot={false} />
-                    {/*<Line yAxisId="left-axis"*/}
-                    {/*      type="linear"*/}
-                    {/*      data={profileData}*/}
-                    {/*      isAnimationActive={false}*/}
-                    {/*      strokeWidth={2}*/}
-                    {/*      dataKey="temperature"*/}
-                    {/*      stroke="#000000"*/}
-                    {/*      dot={false} />*/}
+                    <Line yAxisId="left-axis"
+                          type="linear"
+                          data={profileData}
+                          isAnimationActive={false}
+                          strokeWidth={2}
+                          dataKey="temperature"
+                          stroke="#000000"
+                          dot={false} />
                 </ComposedChart>
             </ResponsiveContainer>
         </div>

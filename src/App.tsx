@@ -44,7 +44,8 @@ function App() {
             console.debug(response);
             if (response.profile) {
                 console.log('Incoming profile: ' + response.profile);
-                setProfile(Profile => [...Profile, ...response.profile]);
+                console.log('Incoming segments: ' + response.profile.segments);
+                setProfile(Profile => [...Profile, ...response.profile.segments]);
             }
             if (response[0].time_ms) {
                 console.debug('Incoming temps: ' + response)
