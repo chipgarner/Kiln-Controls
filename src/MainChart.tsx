@@ -33,7 +33,7 @@ function MainChart(tempData: tempDataProps, profileData: profileDataProps) {
                 <ComposedChart
                     data={tempData}
                     barCategoryGap={0}
-                    margin={{ top: 30, right: 50, left: 50, bottom: 50 }} >
+                    margin={{ top: 30, right: 50, left: 50, bottom: 70 }} >
                     <CartesianGrid strokeDasharray="4" fill="white"/>
                     <XAxis dataKey="time_ms"
                            label={{ value: 'Time', position: 'bottom'}}
