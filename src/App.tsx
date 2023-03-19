@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import useWebSocket, { ReadyState } from 'react-use-websocket';
 import MainChart from "./MainChart";
+import FastChart from "./FastChart";
 import "./App.css";
 
 // Example:  const WS_URL = 'ws://127.0.0.1:8081/status';
@@ -59,6 +60,7 @@ function App() {
     return (
         <div className="App">
             {MainChart(tempData, profileData)}
+            {FastChart(tempData)}
         </div>
      );}
 

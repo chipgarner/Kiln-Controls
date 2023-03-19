@@ -3,7 +3,11 @@
   background-color: #61dafb;
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  flex-flow: row wrap;
+}
+
+@media (max-width: 800px) {
+  .App {
+    flex-direction: column;
+  }
 }

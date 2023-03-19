@@ -1,6 +1,6 @@
 .wrapper {
     background-color: aliceblue;
-    width: 70%;
+    width: 65%;
     height: 70%;
     box-shadow: 20px 8px 20px grey;
     -webkit-transition:  box-shadow .2s ease-in;
@@ -9,6 +9,21 @@
 }
 
 .wrapper:hover{
+    box-shadow: 30px 8px 30px grey;
+    -webkit-transition:  box-shadow .2s ease-in;
+}
+
+.small_wrap {
+    background-color: aliceblue;
+    width: 30%;
+    height: 70%;
+    box-shadow: 20px 8px 20px grey;
+    -webkit-transition:  box-shadow .2s ease-in;
+    display:block;
+    margin: 20px auto;
+}
+
+.small_wrap:hover{
     box-shadow: 30px 8px 30px grey;
     -webkit-transition:  box-shadow .2s ease-in;
 }

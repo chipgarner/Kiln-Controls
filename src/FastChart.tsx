@@ -20,20 +20,21 @@ type tempDataProps = {
     heat_factor: number;
 }[];
 
-type profileDataProps = {
-    time_ms: number;
-    temperature: number;
-}[];
+function trimmed(tempData: tempDataProps) {
+    const last = tempData.slice(-10)
+    console.log('last length: ' + last.length)
+    return last;
+};
+function FastChart(tempData: tempDataProps) {
 
-function MainChart(tempData: tempDataProps, profileData: profileDataProps) {
     return (
-        <div  className="wrapper">
-            <h3> Kiln Status </h3>
-            <ResponsiveContainer width = "99%" aspect={1.6} >
+        <div  className="small_wrap">
+            <h3> Past 5 Minutes </h3>
+            <ResponsiveContainer width ="99%" aspect={1.6} >
                 <ComposedChart
-                    data={tempData}
+                    data={trimmed(tempData)}
                     barCategoryGap={0}
-                    margin={{ top: 30, right: 50, left: 50, bottom: 70 }} >
+                    margin={{ top: 20, right: 30, left: 30, bottom: 30 }} >
                     <CartesianGrid strokeDasharray="4" fill="white"/>
                     <XAxis dataKey="time_ms"
                            label={{ value: 'Time', position: 'bottom'}}
@@ -52,12 +53,12 @@ function MainChart(tempData: tempDataProps, profileData: profileDataProps) {
                                position: 'insideRight' }}/>
                     <Tooltip />yAxisId="right-axis" orientation="right"
                     <Legend verticalAlign="top" height={36}/>
-                    <Area yAxisId="right-axis"
+                    <Bar yAxisId="right-axis"
                           orientation="right"
                           isAnimationActive={false}
                           dataKey="heat_factor"
-                          stroke="rgba(44, 117, 255, 0.3)"
-                          fill="rgba(44, 117, 255, 0.3)" />
+                          stroke="rgba(30, 144, 255, 0.3)"
+                          fill="rgba(30, 144, 255, 0.3)" />
                     <Line yAxisId="left-axis"
                           type="linear"
                           isAnimationActive={false}
@@ -65,18 +66,10 @@ function MainChart(tempData: tempDataProps, profileData: profileDataProps) {
                           dataKey="temperature"
                           stroke="#880000"
                           dot={false} />
-                    <Line yAxisId="left-axis"
-                          type="linear"
-                          data={profileData}
-                          isAnimationActive={false}
-                          strokeWidth={2}
-                          dataKey="temperature"
-                          stroke="#000000"
-                          dot={false} />
                 </ComposedChart>
             </ResponsiveContainer>
         </div>
 
     );}
 
-export default MainChart;
+export default FastChart;
