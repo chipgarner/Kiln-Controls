@@ -25,9 +25,23 @@ type profileDataProps = {
     temperature: number;
 }[];
 
+function handleClick() {
+    // Send data to the backend via POST
+    fetch('http://localhost:8081/stop', {
+        method: 'POST',
+    })
+}
+
+
 function MainChart(tempData: tempDataProps, profileData: profileDataProps) {
     return (
         <div  className="wrapper">
+            <button onClick={handleClick} style={{
+                textAlign: 'center',
+                width: '100px',
+                border: '2px solid black',
+                borderRadius: '5px'
+            }}>Stop</button>
             <h3> Kiln Status </h3>
             <ResponsiveContainer width = "99%" aspect={1.6} >
                 <ComposedChart
