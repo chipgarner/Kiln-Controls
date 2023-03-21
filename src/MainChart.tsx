@@ -25,9 +25,16 @@ type profileDataProps = {
     temperature: number;
 }[];
 
-function handleClick() {
+function handleClickStop() {
     // Send data to the backend via POST
     fetch('http://localhost:8081/stop', {
+        method: 'POST',
+    })
+}
+
+function handleClickStart() {
+    // Send data to the backend via POST
+    fetch('http://localhost:8081/start', {
         method: 'POST',
     })
 }
@@ -36,12 +43,19 @@ function handleClick() {
 function MainChart(tempData: tempDataProps, profileData: profileDataProps) {
     return (
         <div  className="wrapper">
-            <button onClick={handleClick} style={{
+            <button onClick={handleClickStart} style={{
+                textAlign: 'center',
+                width: '100px',
+                border: '2px solid black',
+                borderRadius: '5px'
+            }}>Start</button>
+            <button onClick={handleClickStop} style={{
                 textAlign: 'center',
                 width: '100px',
                 border: '2px solid black',
                 borderRadius: '5px'
             }}>Stop</button>
+
             <h3> Kiln Status </h3>
             <ResponsiveContainer width = "99%" aspect={1.6} >
                 <ComposedChart
@@ -51,8 +65,9 @@ function MainChart(tempData: tempDataProps, profileData: profileDataProps) {
                     <CartesianGrid strokeDasharray="4" fill="white"/>
                     <XAxis dataKey="time_ms"
                            label={{ value: 'Time', position: 'bottom'}}
-                           domain={["dataMin", "dataMax"]}
-                           tickFormatter = {(unixTime) => moment(unixTime).format('HH:mm:ss Do')}
+                           domain={["dataMin - 100000", "dataMax + 100000"]}
+                           allowDataOverflow={false}
+                           tickFormatter = {(unixTime) => moment(unixTime).format('HH:mm')}
                            type="number"
                            includeHidden={true}/>
                     <YAxis yAxisId="left-axis"
@@ -61,6 +76,7 @@ function MainChart(tempData: tempDataProps, profileData: profileDataProps) {
                                position: 'insideLeft' }}/>
                     <YAxis yAxisId="right-axis"
                            orientation="right"
+                           domain={[0, 1]}
                            label={{ value: 'Heat Factor',
                                angle: 90,
                                position: 'insideRight' }}/>

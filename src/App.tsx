@@ -57,25 +57,8 @@ function App() {
         }
     };
 
-    function handleClick() {
-        // Send data to the backend via POST
-        fetch('http://localhost:8081/start', {
-            method: 'POST',
-            // mode: 'cors',
-            // body: JSON.stringify(jsonData) // body data type must match "Content-Type" header
-
-        })
-
-    }
-
     return (
         <div className="App">
-            <button onClick={handleClick} style={{
-                textAlign: 'center',
-                width: '100px',
-                border: '1px solid gray',
-                borderRadius: '5px'
-            }}>Start</button>
             {MainChart(tempData, profileData)}
             {FastChart(tempData)}
         </div>

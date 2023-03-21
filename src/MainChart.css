@@ -15,7 +15,7 @@
 
 .small_wrap {
     background-color: aliceblue;
-    width: 30%;
+    width: 25%;
     height: 70%;
     box-shadow: 20px 8px 20px grey;
     -webkit-transition:  box-shadow .2s ease-in;

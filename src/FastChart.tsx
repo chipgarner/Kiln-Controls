@@ -21,7 +21,7 @@ type tempDataProps = {
 }[];
 
 function trimmed(tempData: tempDataProps) {
-    const last = tempData.slice(-10)
+    const last = tempData.slice(-180)
     console.log('last length: ' + last.length)
     return last;
 };
@@ -29,7 +29,7 @@ function FastChart(tempData: tempDataProps) {
 
     return (
         <div  className="small_wrap">
-            <h3> Past 5 Minutes </h3>
+            <h3> Thermocouple Noise </h3>
             <ResponsiveContainer width ="99%" aspect={1.6} >
                 <ComposedChart
                     data={trimmed(tempData)}
@@ -39,15 +39,18 @@ function FastChart(tempData: tempDataProps) {
                     <XAxis dataKey="time_ms"
                            label={{ value: 'Time', position: 'bottom'}}
                            domain={["dataMin", "dataMax"]}
-                           tickFormatter = {(unixTime) => moment(unixTime).format('HH:mm:ss Do')}
+                           tickFormatter = {(unixTime) => moment(unixTime).format('mm:ss')}
                            type="number"
                            includeHidden={true}/>
                     <YAxis yAxisId="left-axis"
+                           domain={["auto", "auto"]}
+                           // tickFormatter={}
                            label={{ value: 'Temperature',
                                angle: -90,
                                position: 'insideLeft' }}/>
                     <YAxis yAxisId="right-axis"
                            orientation="right"
+                           domain={[0, 1]}
                            label={{ value: 'Heat Factor',
                                angle: 90,
                                position: 'insideRight' }}/>
