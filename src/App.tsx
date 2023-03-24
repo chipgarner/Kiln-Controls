@@ -5,7 +5,6 @@ import MainChart from "./MainChart";
 import FastChart from "./FastChart";
 import { ThemeProvider, Grid, Box } from 'theme-ui'
 import { theme } from './TheTheme'
-import LabelledNumber from "./LabelledNumber";
 import "./App.css";
 import {Boxes} from "./Boxes"
 
@@ -65,6 +64,10 @@ function App() {
     return (
         <ThemeProvider theme={theme}>
             <Grid gap={2} columns={[1, 2, 4]}>
+                <Box bg="primary">primary</Box>
+                <Box bg="muted">muted</Box>
+                <Box bg="secondary">secondary</Box>
+                <Box>backgound</Box>
                 {MainChart(tempData, profileData)}
                 {FastChart(tempData)}
                 <Box bg="primary">primary</Box>

@@ -7,12 +7,12 @@ export const theme: Theme = {
         monospace: 'Menlo, monospace',
     },
     colors: {
-        text: '#1b1e23',
-        background: '#FFFFFF',
-        primary: '#1b1e23',
-        secondary: '#808080',
+        text: 'black',
+        background: '#cce6ff',
+        primary: '#ffaa80',
+        secondary: '#b3ffb3',
         muted: '#b9b9bb',
-        hinted: '#f2f2f1',
+        hinted: 'aliceblue',
         modes: {
             dark: {
                 text: '#ebebec',
@@ -20,17 +20,17 @@ export const theme: Theme = {
                 primary: '#ebebec',
                 secondary: '#808080',
                 muted: '#393a3d',
-                hinted: '#2a2c30',
+                hinted: 'aliceblue',
             },
         },
     },
     buttons: {
         primary: {
             borderRadius: 0,
-            color: 'background',
+            color: 'text',
             bg: 'primary',
             '&:hover': {
-                bg: 'text',
+                bg: 'secondary',
             }
         },
     },

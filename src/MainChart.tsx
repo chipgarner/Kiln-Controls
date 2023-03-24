@@ -11,9 +11,8 @@ import {CartesianGrid,
     Tooltip,
     XAxis,
     YAxis} from "recharts";
-import './MainChart.css';
 import moment from "moment/moment";
-import { Button } from 'theme-ui'
+import { Button, Box  } from 'theme-ui'
 import React from "react";
 
 type tempDataProps = {
@@ -44,17 +43,20 @@ function handleClickStart() {
 
 function MainChart(tempData: tempDataProps, profileData: profileDataProps) {
     return (
-        <div  className="wrapper">
+        <Box p={4} color="text" bg="hinted"
+             sx={{
+                 width: '40vw',
+             }}>
 
             <Button mr={2} onClick={handleClickStart} >Start</Button>
             <Button onClick={handleClickStop}>Stop</Button>
 
             <h3> Kiln Status </h3>
-            <ResponsiveContainer width = "99%" aspect={1.6} >
+            <ResponsiveContainer width = "99%" aspect={2.6} >
                 <ComposedChart
                     data={tempData}
                     barCategoryGap={0}
-                    margin={{ top: 30, right: 50, left: 50, bottom: 70 }} >
+                    margin={{ top: 0, right: 0, left: 0, bottom: 0 }} >
                     <CartesianGrid strokeDasharray="4" fill="white"/>
                     <XAxis dataKey="time_ms"
                            label={{ value: 'Time', position: 'bottom'}}
@@ -98,7 +100,7 @@ function MainChart(tempData: tempDataProps, profileData: profileDataProps) {
                           dot={false} />
                 </ComposedChart>
             </ResponsiveContainer>
-        </div>
+        </Box>
 
     );}
 

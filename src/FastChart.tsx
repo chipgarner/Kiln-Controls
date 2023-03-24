@@ -11,7 +11,6 @@ import {CartesianGrid,
     Tooltip,
     XAxis,
     YAxis} from "recharts";
-import './MainChart.css';
 import moment from "moment/moment";
 import React from "react";
 import { Box } from 'theme-ui'
@@ -27,9 +26,10 @@ function trimmed(tempData: tempDataProps) {
     console.log('last length: ' + last.length)
     return last;
 };
+
 function FastChart(tempData: tempDataProps) {
     return (
-        <Box p={4} color="secondary" bg="hinted"
+        <Box p={4} color="text" bg="hinted"
              sx={{
                  width: '25vw',
              }}>
@@ -38,7 +38,7 @@ function FastChart(tempData: tempDataProps) {
                 <ComposedChart
                     data={trimmed(tempData)}
                     barCategoryGap={0}
-                    margin={{ top: 20, right: 30, left: 30, bottom: 30 }} >
+                    margin={{ top: 0, right: 0, left: 0, bottom: 0 }} >
                     <CartesianGrid strokeDasharray="4" fill="white"/>
                     <XAxis dataKey="time_ms"
                            label={{ value: 'Time', position: 'bottom'}}
