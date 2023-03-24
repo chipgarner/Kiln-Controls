@@ -12,7 +12,7 @@ import {CartesianGrid,
     XAxis,
     YAxis} from "recharts";
 import moment from "moment/moment";
-import { Button, Box  } from 'theme-ui'
+import { Box  } from 'theme-ui'
 import React from "react";
 
 type tempDataProps = {
@@ -26,33 +26,14 @@ type profileDataProps = {
     temperature: number;
 }[];
 
-function handleClickStop() {
-    // Send data to the backend via POST
-    fetch('http://localhost:8081/stop', {
-        method: 'POST',
-    })
-}
-
-function handleClickStart() {
-    // Send data to the backend via POST
-    fetch('http://localhost:8081/start', {
-        method: 'POST',
-    })
-}
-
-
 function MainChart(tempData: tempDataProps, profileData: profileDataProps) {
     return (
         <Box p={4} color="text" bg="hinted"
              sx={{
-                 width: '40vw',
+                 width: '[25vw, 50vw, 100vw]',
              }}>
-
-            <Button mr={2} onClick={handleClickStart} >Start</Button>
-            <Button onClick={handleClickStop}>Stop</Button>
-
             <h3> Kiln Status </h3>
-            <ResponsiveContainer width = "99%" aspect={2.6} >
+            <ResponsiveContainer width = "99%" aspect={1.6} >
                 <ComposedChart
                     data={tempData}
                     barCategoryGap={0}

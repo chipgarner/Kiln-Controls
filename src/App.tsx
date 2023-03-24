@@ -3,10 +3,10 @@ import React, {useEffect, useState} from 'react';
 import useWebSocket, { ReadyState } from 'react-use-websocket';
 import MainChart from "./MainChart";
 import FastChart from "./FastChart";
-import { ThemeProvider, Grid, Box } from 'theme-ui'
+import { ThemeProvider, Grid, Box, Button } from 'theme-ui'
+import { handleClickStop, handleClickStart} from "./BackendCalls"
 import { theme } from './TheTheme'
 import "./App.css";
-import {Boxes} from "./Boxes"
 
 // Example:  const WS_URL = 'ws://127.0.0.1:8081/status';
 // This is needed if the server is running on a different machine than the browser.
@@ -65,7 +65,9 @@ function App() {
         <ThemeProvider theme={theme}>
             <Grid gap={2} columns={[1, 2, 4]}>
                 <Box bg="primary">primary</Box>
-                <Box bg="muted">muted</Box>
+                <Box bg="muted">
+                    <Button mr={2} onClick={handleClickStart} >Start</Button>
+                    <Button onClick={handleClickStop}>Stop</Button></Box>
                 <Box bg="secondary">secondary</Box>
                 <Box>backgound</Box>
                 {MainChart(tempData, profileData)}

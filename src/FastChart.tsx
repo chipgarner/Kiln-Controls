@@ -31,7 +31,7 @@ function FastChart(tempData: tempDataProps) {
     return (
         <Box p={4} color="text" bg="hinted"
              sx={{
-                 width: '25vw',
+                 width: '[25vw, 50vw, 100vw]',
              }}>
             <h3> Thermocouple Noise </h3>
             <ResponsiveContainer width ="99%" aspect={1.6} >
