@@ -1,3 +1,4 @@
+/** @jsxImportSource theme-ui */
 import {CartesianGrid,
     ComposedChart,
     Legend,
@@ -13,6 +14,7 @@ import {CartesianGrid,
 import './MainChart.css';
 import moment from "moment/moment";
 import React from "react";
+import { Box } from 'theme-ui'
 
 type tempDataProps = {
     time_ms: number;
@@ -26,9 +28,11 @@ function trimmed(tempData: tempDataProps) {
     return last;
 };
 function FastChart(tempData: tempDataProps) {
-
     return (
-        <div  className="small_wrap">
+        <Box p={4} color="secondary" bg="hinted"
+             sx={{
+                 width: '25vw',
+             }}>
             <h3> Thermocouple Noise </h3>
             <ResponsiveContainer width ="99%" aspect={1.6} >
                 <ComposedChart
@@ -71,7 +75,7 @@ function FastChart(tempData: tempDataProps) {
                           dot={false} />
                 </ComposedChart>
             </ResponsiveContainer>
-        </div>
+        </Box>
 
     );}
 

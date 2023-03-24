@@ -1,3 +1,4 @@
+/** @jsxImportSource theme-ui */
 import {CartesianGrid,
     ComposedChart,
     Legend,
@@ -12,6 +13,7 @@ import {CartesianGrid,
     YAxis} from "recharts";
 import './MainChart.css';
 import moment from "moment/moment";
+import { Button } from 'theme-ui'
 import React from "react";
 
 type tempDataProps = {
@@ -43,18 +45,9 @@ function handleClickStart() {
 function MainChart(tempData: tempDataProps, profileData: profileDataProps) {
     return (
         <div  className="wrapper">
-            <button onClick={handleClickStart} style={{
-                textAlign: 'center',
-                width: '100px',
-                border: '2px solid black',
-                borderRadius: '5px'
-            }}>Start</button>
-            <button onClick={handleClickStop} style={{
-                textAlign: 'center',
-                width: '100px',
-                border: '2px solid black',
-                borderRadius: '5px'
-            }}>Stop</button>
+
+            <Button mr={2} onClick={handleClickStart} >Start</Button>
+            <Button onClick={handleClickStop}>Stop</Button>
 
             <h3> Kiln Status </h3>
             <ResponsiveContainer width = "99%" aspect={1.6} >

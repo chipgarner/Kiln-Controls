@@ -1,8 +1,13 @@
+/** @jsxImportSource theme-ui */
 import React, {useEffect, useState} from 'react';
 import useWebSocket, { ReadyState } from 'react-use-websocket';
 import MainChart from "./MainChart";
 import FastChart from "./FastChart";
+import { ThemeProvider, Grid, Box } from 'theme-ui'
+import { theme } from './TheTheme'
+import LabelledNumber from "./LabelledNumber";
 import "./App.css";
+import {Boxes} from "./Boxes"
 
 // Example:  const WS_URL = 'ws://127.0.0.1:8081/status';
 // This is needed if the server is running on a different machine than the browser.
@@ -58,10 +63,18 @@ function App() {
     };
 
     return (
-        <div className="App">
-            {MainChart(tempData, profileData)}
-            {FastChart(tempData)}
-        </div>
+        <ThemeProvider theme={theme}>
+            <Grid gap={2} columns={[1, 2, 4]}>
+                {MainChart(tempData, profileData)}
+                {FastChart(tempData)}
+                <Box bg="primary">primary</Box>
+                <Box bg="muted">muted</Box>
+                <Box bg="secondary">secondary</Box>
+                <Box bg="hinted">hinted</Box>
+                <Box bg="background">background</Box>
+            </Grid>
+        </ThemeProvider>
+
      );}
 
 export default App;
