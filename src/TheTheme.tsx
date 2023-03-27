@@ -13,14 +13,18 @@ export const theme: Theme = {
         secondary: '#b3ffb3',
         muted: '#b9b9bb',
         hinted: 'aliceblue',
+        contrastbg: 'white',
+        border: 'red',
         modes: {
             dark: {
-                text: '#ebebec',
-                background: '#1b1e23',
-                primary: '#ebebec',
-                secondary: '#808080',
-                muted: '#393a3d',
-                hinted: 'aliceblue',
+                text: 'white',
+                background: '#330000',
+                primary: '#660000',
+                secondary: '#2d2d86',
+                muted: '#b9b9bb',
+                hinted: '#393a3d',
+                contrastbg: 'black',
+                border: 'red',
             },
         },
     },
@@ -34,5 +38,4 @@ export const theme: Theme = {
             }
         },
     },
-
 }

@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 import useWebSocket, { ReadyState } from 'react-use-websocket';
 import MainChart from "./MainChart";
 import FastChart from "./FastChart";
+import labelledNumber from "./labelledeNumber"
 import { ThemeProvider, Grid, Box, Button } from 'theme-ui'
 import { handleClickStop, handleClickStart} from "./BackendCalls"
 import { theme } from './TheTheme'
@@ -72,8 +73,13 @@ function App() {
                 <Box>backgound</Box>
                 {MainChart(tempData, profileData)}
                 {FastChart(tempData)}
-                <Box bg="primary">primary</Box>
-                <Box bg="muted">muted</Box>
+                <Box bg="primary" >
+                    {labelledNumber('Primary', 637)}
+                </Box>
+                <Box bg="muted">
+                    muted
+                    {labelledNumber('Temperature', 1021)}
+                </Box>
                 <Box bg="secondary">secondary</Box>
                 <Box bg="hinted">hinted</Box>
                 <Box bg="background">background</Box>
