@@ -38,4 +38,7 @@ export const theme: Theme = {
             }
         },
     },
+    breakpoints: [
+        '30em', '60em', '120em',
+    ],
 }

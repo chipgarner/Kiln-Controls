@@ -8,7 +8,7 @@ function labelledeNumber(label: string, num: number) {
         <div
             sx={{
                 display: 'block',
-                width: 115,
+                width: 120,
                 textAlign: 'center',
                 lineHeight: '10px',
                 paddingTop: '5px',

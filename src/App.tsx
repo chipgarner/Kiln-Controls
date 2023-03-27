@@ -1,12 +1,12 @@
 /** @jsxImportSource theme-ui */
 import React, {useEffect, useState} from 'react';
-import useWebSocket, { ReadyState } from 'react-use-websocket';
+import useWebSocket, {ReadyState} from 'react-use-websocket';
 import MainChart from "./MainChart";
 import FastChart from "./FastChart";
 import labelledNumber from "./labelledeNumber"
-import { ThemeProvider, Grid, Box, Button } from 'theme-ui'
-import { handleClickStop, handleClickStart} from "./BackendCalls"
-import { theme } from './TheTheme'
+import {ThemeProvider, Grid, Box, Button, Container} from 'theme-ui'
+import {handleClickStop, handleClickStart} from "./BackendCalls"
+import {theme} from './TheTheme'
 import "./App.css";
 
 // Example:  const WS_URL = 'ws://127.0.0.1:8081/status';
@@ -20,7 +20,7 @@ const WS_URL = 'ws:' + server + ':8081/status';
 console.log(WS_URL)
 
 function App() {
-    const { sendJsonMessage, readyState } = useWebSocket(WS_URL, {
+    const {sendJsonMessage, readyState} = useWebSocket(WS_URL, {
         onOpen: () => {
             console.log('WebSocket connection established.');
         },
@@ -28,20 +28,20 @@ function App() {
         filter: () => false,
         retryOnError: true,
         shouldReconnect: () => true,
-        onMessage: (event: WebSocketEventMap['message']) =>  processMessages(event)
+        onMessage: (event: WebSocketEventMap['message']) => processMessages(event)
     });
 
     useEffect(() => {
         console.log('In useEffect');
-        if(readyState === ReadyState.OPEN) {
+        if (readyState === ReadyState.OPEN) {
             sendJsonMessage({});
         }
     }, [sendJsonMessage, readyState]);
 
     const [tempData, setTempData] = useState<
-        { time_ms: number, temperature: number, heat_factor: number }[]  >([]);
+        { time_ms: number, temperature: number, heat_factor: number }[]>([]);
     const [profileData, setProfile] = useState<
-        {  time_ms: number, temperature: number }[]  >([]);
+        { time_ms: number, temperature: number }[]>([]);
 
     const processMessages = (event: { data: string; }) => {
         console.debug("Message : " + event.data);
@@ -64,28 +64,39 @@ function App() {
 
     return (
         <ThemeProvider theme={theme}>
-            <Grid gap={2} columns={[1, 2, 4]}>
-                <Box bg="primary">primary</Box>
-                <Box bg="muted">
-                    <Button mr={2} onClick={handleClickStart} >Start</Button>
-                    <Button onClick={handleClickStop}>Stop</Button></Box>
-                <Box bg="secondary">secondary</Box>
-                <Box>backgound</Box>
+            <div
+                sx={{
+                    display: 'flex',
+                    width: ['100%', '100%', '50%'],
+                    // bg: 'secondary',
+                    justifyContent: 'space-around'
+                }}
+            >
+                <Button onClick={handleClickStart}>Start</Button>
+                {labelledNumber('Temperature', 1021)}
+                {labelledNumber('Target Error', 637)}
+                <Button onClick={handleClickStop}>Stop</Button>
+            </div>
+
+            <Grid gap={2} columns={[1, 1, 2]}>
+
                 {MainChart(tempData, profileData)}
-                {FastChart(tempData)}
-                <Box bg="primary" >
-                    {labelledNumber('Primary', 637)}
-                </Box>
-                <Box bg="muted">
-                    muted
-                    {labelledNumber('Temperature', 1021)}
-                </Box>
-                <Box bg="secondary">secondary</Box>
-                <Box bg="hinted">hinted</Box>
+                <Grid gap={2} columns={[1, 2, 2]}>
+                    <Box bg="secondary">secondary</Box>
+                    <Box bg="hinted">hinted</Box>
+                    {FastChart(tempData)}
+                    <Box bg="primary">
+                        primary
+                    </Box>
+                    <Box bg="muted">
+                        muted
+                    </Box>
+                </Grid>
                 <Box bg="background">background</Box>
             </Grid>
         </ThemeProvider>
 
-     );}
+    );
+}
 
 export default App;
