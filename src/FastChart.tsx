@@ -68,7 +68,7 @@ function FastChart(tempData: tempDataProps) {
                           fill="rgba(30, 144, 255, 0.3)" />
                     <Line yAxisId="left-axis"
                           type="linear"
-                          isAnimationActive={false}
+                          isAnimationActive={true}
                           strokeWidth={3}
                           dataKey="temperature"
                           stroke="#880000"

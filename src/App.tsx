@@ -40,11 +40,13 @@ function App() {
 
     const [tempData, setTempData] = useState<
         { time_ms: number, temperature: number, heat_factor: number }[]>([]);
+    const [smoothedTempData, setSmoothedTempData] = useState<
+        { time_ms: number, temperature: number, heat_factor: number }[]>([]);
     const [profileData, setProfile] = useState<
         { time_ms: number, temperature: number }[]>([]);
 
     const processMessages = (event: { data: string; }) => {
-        console.debug("Message : " + event.data);
+        console.debug("Message: " + event.data);
         try {
             const response = JSON.parse(event.data);
             console.debug(response);
@@ -53,12 +55,18 @@ function App() {
                 console.log('Incoming segments: ' + response.profile.segments);
                 setProfile(Profile => [...Profile, ...response.profile.segments]);
             }
-            if (response[0].time_ms) {
-                console.debug('Incoming temps: ' + response)
-                setTempData(tempData => [...tempData, ...response]);
+            // if (response[0].time_ms) {
+            //     console.debug('Incoming temps: ' + response)
+            //     setTempData(tempData => [...tempData, ...response]);
+            // }
+            if (response.state) {
+                console.debug('Incoming state: ' + response.state)
+                console.debug('Incoming stuff: ' + response.t_t_h_z_all.Zone1)
+                setTempData(tempData => [...tempData, ...response.t_t_h_z_all.Zone1]);
+                setSmoothedTempData(smoothedTempData => [...smoothedTempData, ...response.t_t_h_z_smoothed.Zone1]);
             }
         } catch (e) {
-            console.warn("Not a JSON message");
+            console.warn("Not a JSON message " + e);
         }
     };
 
@@ -80,7 +88,7 @@ function App() {
 
             <Grid gap={2} columns={[1, 1, 2]}>
 
-                {MainChart(tempData, profileData)}
+                {MainChart(smoothedTempData, profileData)}
                 <Grid gap={2} columns={[1, 2, 2]}>
                     <Box bg="secondary">secondary</Box>
                     <Box bg="hinted">hinted</Box>
