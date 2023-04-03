@@ -21,13 +21,24 @@ type tempDataProps = {
     heat_factor: number;
 }[];
 
+type tempDataPropsZ2 = {
+    time_ms: number;
+    temperature: number;
+    heat_factor: number;
+}[];
+
 function trimmed(tempData: tempDataProps) {
     const last = tempData.slice(-180)
     console.log('last length: ' + last.length)
     return last;
 };
+function trimmedZ2(tempDataZ2: tempDataPropsZ2) {
+    const last = tempDataZ2.slice(-180)
+    console.log('last length: ' + last.length)
+    return last;
+};
 
-function FastChart(tempData: tempDataProps) {
+function FastChart(tempData: tempDataProps, tempDataZ2: tempDataPropsZ2) {
     return (
         <Box p={4} color="text" bg="hinted"
              sx={{
@@ -72,6 +83,14 @@ function FastChart(tempData: tempDataProps) {
                           strokeWidth={3}
                           dataKey="temperature"
                           stroke="#880000"
+                          dot={false} />
+                    <Line yAxisId="left-axis"
+                          data={trimmedZ2(tempDataZ2)}
+                          type="linear"
+                          isAnimationActive={true}
+                          strokeWidth={3}
+                          dataKey="temperature"
+                          stroke="#008800"
                           dot={false} />
                 </ComposedChart>
             </ResponsiveContainer>

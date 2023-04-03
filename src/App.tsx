@@ -38,7 +38,14 @@ function App() {
         }
     }, [sendJsonMessage, readyState]);
 
+    const [temp, setTemp] = useState(
+         -273 );
+
     const [tempData, setTempData] = useState<
+        { time_ms: number, temperature: number, heat_factor: number }[]>([]);
+    const [tempDataZ, setTempDataZ] = useState<
+        {zone: { time_ms: number, temperature: number, heat_factor: number }}[]>([]);
+    const [tempDataZ2, setTempDataZ2] = useState<
         { time_ms: number, temperature: number, heat_factor: number }[]>([]);
     const [smoothedTempData, setSmoothedTempData] = useState<
         { time_ms: number, temperature: number, heat_factor: number }[]>([]);
@@ -55,15 +62,15 @@ function App() {
                 console.log('Incoming segments: ' + response.profile.segments);
                 setProfile(Profile => [...Profile, ...response.profile.segments]);
             }
-            // if (response[0].time_ms) {
-            //     console.debug('Incoming temps: ' + response)
-            //     setTempData(tempData => [...tempData, ...response]);
-            // }
             if (response.state) {
                 console.debug('Incoming state: ' + response.state)
-                console.debug('Incoming stuff: ' + response.t_t_h_z_all.Zone1)
+                console.debug('tempDataZ: ' + tempDataZ[0])
                 setTempData(tempData => [...tempData, ...response.t_t_h_z_all.Zone1]);
+                setTempDataZ(tempDataZ => [...tempDataZ, ...[response.t_t_h_z_all]]);
+                setTempDataZ2(tempDataZ2 => [...tempDataZ2, ...response.t_t_h_z_all.Zone2]);
                 setSmoothedTempData(smoothedTempData => [...smoothedTempData, ...response.t_t_h_z_smoothed.Zone1]);
+                setTemp(temp => Math.round(response.t_t_h_z_smoothed.Zone1[0].temperature));
+                console.debug("Temp " + temp)
             }
         } catch (e) {
             console.warn("Not a JSON message " + e);
@@ -81,7 +88,7 @@ function App() {
                 }}
             >
                 <Button onClick={handleClickStart}>Start</Button>
-                {labelledNumber('Temperature', 1021)}
+                {labelledNumber("Temperature", temp)}
                 {labelledNumber('Target Error', 637)}
                 <Button onClick={handleClickStop}>Stop</Button>
             </div>
@@ -92,7 +99,7 @@ function App() {
                 <Grid gap={2} columns={[1, 2, 2]}>
                     <Box bg="secondary">secondary</Box>
                     <Box bg="hinted">hinted</Box>
-                    {FastChart(tempData)}
+                    {FastChart(tempData, tempDataZ2)}
                     <Box bg="primary">
                         primary
                     </Box>
