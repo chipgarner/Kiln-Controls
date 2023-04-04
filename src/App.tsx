@@ -38,13 +38,13 @@ function App() {
         }
     }, [sendJsonMessage, readyState]);
 
-    const [temp, setTemp] = useState(
-         -273 );
+    const [temp, setTemp] = useState(-273 );
+    const [state, setState] = useState<{ state: string, targets: {Zone1: []} }>({state: "Off", targets: {Zone1: []}})
 
     const [tempData, setTempData] = useState<
         { time_ms: number, temperature: number, heat_factor: number }[]>([]);
     const [tempDataZ, setTempDataZ] = useState<
-        {zone: { time_ms: number, temperature: number, heat_factor: number }}[]>([]);
+        {Zone1: { time_ms: number, temperature: number, heat_factor: number }}[]>([]);
     const [tempDataZ2, setTempDataZ2] = useState<
         { time_ms: number, temperature: number, heat_factor: number }[]>([]);
     const [smoothedTempData, setSmoothedTempData] = useState<
@@ -65,6 +65,8 @@ function App() {
             if (response.state) {
                 console.debug('Incoming state: ' + response.state)
                 console.debug('tempDataZ: ' + tempDataZ[0])
+                setState(state => response)
+                console.debug(state)
                 setTempData(tempData => [...tempData, ...response.t_t_h_z_all.Zone1]);
                 setTempDataZ(tempDataZ => [...tempDataZ, ...[response.t_t_h_z_all]]);
                 setTempDataZ2(tempDataZ2 => [...tempDataZ2, ...response.t_t_h_z_all.Zone2]);
@@ -88,7 +90,9 @@ function App() {
                 }}
             >
                 <Button onClick={handleClickStart}>Start</Button>
-                {labelledNumber("Temperature", temp)}
+                <h3>State: {state.state}</h3>
+                <h3>Targets: {state.targets.toString()}</h3>
+                {labelledNumber('Temperature', temp)}
                 {labelledNumber('Target Error', 637)}
                 <Button onClick={handleClickStop}>Stop</Button>
             </div>
