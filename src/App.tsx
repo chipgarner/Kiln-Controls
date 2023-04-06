@@ -1,9 +1,10 @@
 /** @jsxImportSource theme-ui */
 import React, {useEffect, useState} from 'react';
 import useWebSocket, {ReadyState} from 'react-use-websocket';
-import MainChart from "./MainChart";
+import {MainChart, tempSmoothedProps} from "./MainChart";
 import FastChart from "./FastChart";
 import labelledNumber from "./labelledeNumber"
+import {TempRates, tempRatesProps, initProps}  from "./TempRates"
 import {ThemeProvider, Grid, Box, Button, Container} from 'theme-ui'
 import {handleClickStop, handleClickStart} from "./BackendCalls"
 import {theme} from './TheTheme'
@@ -39,16 +40,14 @@ function App() {
     }, [sendJsonMessage, readyState]);
 
     const [temp, setTemp] = useState(-273 );
-    const [state, setState] = useState<{ state: string, targets: {Zone1: []} }>({state: "Off", targets: {Zone1: []}})
+    const [state, setState] = useState<tempRatesProps>(initProps)
 
     const [tempData, setTempData] = useState<
         { time_ms: number, temperature: number, heat_factor: number }[]>([]);
-    const [tempDataZ, setTempDataZ] = useState<
-        {Zone1: { time_ms: number, temperature: number, heat_factor: number }}[]>([]);
     const [tempDataZ2, setTempDataZ2] = useState<
         { time_ms: number, temperature: number, heat_factor: number }[]>([]);
     const [smoothedTempData, setSmoothedTempData] = useState<
-        { time_ms: number, temperature: number, heat_factor: number }[]>([]);
+        tempSmoothedProps>([]);
     const [profileData, setProfile] = useState<
         { time_ms: number, temperature: number }[]>([]);
 
@@ -63,14 +62,12 @@ function App() {
                 setProfile(Profile => [...Profile, ...response.profile.segments]);
             }
             if (response.state) {
-                console.debug('Incoming state: ' + response.state)
-                console.debug('tempDataZ: ' + tempDataZ[0])
                 setState(state => response)
                 console.debug(state)
                 setTempData(tempData => [...tempData, ...response.t_t_h_z_all.Zone1]);
-                setTempDataZ(tempDataZ => [...tempDataZ, ...[response.t_t_h_z_all]]);
                 setTempDataZ2(tempDataZ2 => [...tempDataZ2, ...response.t_t_h_z_all.Zone2]);
                 setSmoothedTempData(smoothedTempData => [...smoothedTempData, ...response.t_t_h_z_smoothed.Zone1]);
+                console.debug(smoothedTempData)
                 setTemp(temp => Math.round(response.t_t_h_z_smoothed.Zone1[0].temperature));
                 console.debug("Temp " + temp)
             }
@@ -90,8 +87,6 @@ function App() {
                 }}
             >
                 <Button onClick={handleClickStart}>Start</Button>
-                <h3>State: {state.state}</h3>
-                <h3>Targets: {state.targets.toString()}</h3>
                 {labelledNumber('Temperature', temp)}
                 {labelledNumber('Target Error', 637)}
                 <Button onClick={handleClickStop}>Stop</Button>
@@ -101,7 +96,7 @@ function App() {
 
                 {MainChart(smoothedTempData, profileData)}
                 <Grid gap={2} columns={[1, 2, 2]}>
-                    <Box bg="secondary">secondary</Box>
+                    <Box bg="secondary">{TempRates(state)}</Box>
                     <Box bg="hinted">hinted</Box>
                     {FastChart(tempData, tempDataZ2)}
                     <Box bg="primary">
@@ -116,6 +111,7 @@ function App() {
         </ThemeProvider>
 
     );
+    
 }
 
 export default App;

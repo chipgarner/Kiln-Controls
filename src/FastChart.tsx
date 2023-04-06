@@ -29,12 +29,10 @@ type tempDataPropsZ2 = {
 
 function trimmed(tempData: tempDataProps) {
     const last = tempData.slice(-45)
-    console.log('last length: ' + last.length)
     return last;
 };
 function trimmedZ2(tempDataZ2: tempDataPropsZ2) {
     const last = tempDataZ2.slice(-45)
-    console.log('last length: ' + last.length)
     return last;
 };
 

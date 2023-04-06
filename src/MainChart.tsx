@@ -13,13 +13,19 @@ import {CartesianGrid,
     YAxis} from "recharts";
 import moment from "moment/moment";
 import { Box, Button  } from 'theme-ui'
-// import {handleClickStop, handleClickStart} from "./BackendCalls"
 import React from "react";
 
-type tempDataProps = {
-    time_ms: number;
-    temperature: number;
-    heat_factor: number;
+// type tempDataProps = {
+//     time_ms: number;
+//     temperature: number;
+//     heat_factor: number;
+// }[];
+
+export type tempSmoothedProps = {
+    t_t_h_z_smoothed: { Zone1: [{
+            time_ms: number;
+            temperature: number;
+            heat_factore: number}], Zone2: [], Zone3: [], Zone4: []}
 }[];
 
 type profileDataProps = {
@@ -27,14 +33,13 @@ type profileDataProps = {
     temperature: number;
 }[];
 
-function MainChart(tempData: tempDataProps, profileData: profileDataProps) {
+export function MainChart(tempData: tempSmoothedProps, profileData: profileDataProps) {
     return (
         <Box p={4} color="text" bg="hinted"
              sx={{
                  padding: '3px'
              }}>
             <h3> Kiln Status
-            {/*<Button onClick={handleClickStop}>Stop</Button>*/}
             </h3>
             <ResponsiveContainer width = "100%" aspect={1.6} >
                 <ComposedChart
@@ -87,5 +92,3 @@ function MainChart(tempData: tempDataProps, profileData: profileDataProps) {
         </Box>
 
     );}
-
-export default MainChart;
