@@ -63,11 +63,11 @@ function App() {
             if (response.state) {
                 setStatus(state => response)
                 console.debug(state)
-                setTempData(tempData => [...tempData, ...response.t_t_h_z_all.Zone1]);
+                setTempData(tempData => [...tempData, ...response.t_t_h_z_all["Zone 1"]]);
                 setTempDataZ2(tempDataZ2 => [...tempDataZ2, ...response.t_t_h_z_all.Zone2]);
-                setSmoothedTempData(smoothedTempData => [...smoothedTempData, ...response.t_t_h_z_smoothed.Zone1]);
+                setSmoothedTempData(smoothedTempData => [...smoothedTempData, response.zone_status["Zone 1"]]);
                 console.debug(smoothedTempData)
-                setTemp(temp => Math.round(response.t_t_h_z_smoothed.Zone1[0].temperature));
+                setTemp(temp => Math.round(response.zone_status["Zone 1"].temperature));
                 console.debug("Temp " + temp)
             }
         } catch (e) {

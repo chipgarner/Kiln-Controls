@@ -24,7 +24,7 @@ function labelledeNumber(label: string, num: number | string) {
                     fontWeight: 'bold',
                 }}
             >
-                {label} &deg;C
+                {label}
             </Text>
             <p></p>
             <Text
