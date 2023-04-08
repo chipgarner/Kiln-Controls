@@ -40,7 +40,7 @@ function App() {
     }, [sendJsonMessage, readyState]);
 
     const [temp, setTemp] = useState(-273 );
-    const [state, setState] = useState<tempRatesProps>(initProps)
+    const [state, setStatus] = useState<tempRatesProps>(initProps)
 
     const [tempData, setTempData] = useState<
         { time_ms: number, temperature: number, heat_factor: number }[]>([]);
@@ -52,7 +52,6 @@ function App() {
         { time_ms: number, temperature: number }[]>([]);
 
     const processMessages = (event: { data: string; }) => {
-        console.debug("Message: " + event.data);
         try {
             const response = JSON.parse(event.data);
             console.debug(response);
@@ -62,7 +61,7 @@ function App() {
                 setProfile(Profile => [...Profile, ...response.profile.segments]);
             }
             if (response.state) {
-                setState(state => response)
+                setStatus(state => response)
                 console.debug(state)
                 setTempData(tempData => [...tempData, ...response.t_t_h_z_all.Zone1]);
                 setTempDataZ2(tempDataZ2 => [...tempDataZ2, ...response.t_t_h_z_all.Zone2]);
@@ -82,13 +81,13 @@ function App() {
                 sx={{
                     display: 'flex',
                     width: ['100%', '100%', '50%'],
-                    // bg: 'secondary',
+                    bg: 'secondary',
                     justifyContent: 'space-around'
                 }}
             >
                 <Button onClick={handleClickStart}>Start</Button>
-                {labelledNumber('Temperature', temp)}
-                {labelledNumber('Target Error', 637)}
+                {labelledNumber('The Temperature &deg;C', temp)}
+                {labelledNumber('Target Error', "It should grow")}
                 <Button onClick={handleClickStop}>Stop</Button>
             </div>
 
@@ -96,7 +95,6 @@ function App() {
 
                 {MainChart(smoothedTempData, profileData)}
                 <Grid gap={2} columns={[1, 2, 2]}>
-                    <Box bg="secondary">{TempRates(state)}</Box>
                     <Box bg="hinted">hinted</Box>
                     {FastChart(tempData, tempDataZ2)}
                     <Box bg="primary">
@@ -108,6 +106,7 @@ function App() {
                 </Grid>
                 <Box bg="background">background</Box>
             </Grid>
+            {TempRates(state)}
         </ThemeProvider>
 
     );

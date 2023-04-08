@@ -27,13 +27,16 @@ type tempDataPropsZ2 = {
     heat_factor: number;
 }[];
 
+const trim_by = - 45;  // Number of recent points to keep
+
 function trimmed(tempData: tempDataProps) {
-    const last = tempData.slice(-45)
-    return last;
+    tempData = tempData.slice(trim_by)
+    console.debug('tempData length: ' + tempData.length)
+    return tempData;
 };
 function trimmedZ2(tempDataZ2: tempDataPropsZ2) {
-    const last = tempDataZ2.slice(-45)
-    return last;
+    tempDataZ2 = tempDataZ2.slice(trim_by)
+    return tempDataZ2;
 };
 
 function FastChart(tempData: tempDataProps, tempDataZ2: tempDataPropsZ2) {
