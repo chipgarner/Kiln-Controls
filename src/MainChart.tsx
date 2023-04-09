@@ -37,10 +37,8 @@ export function MainChart(tempData: tempSmoothedProps, profileData: profileDataP
     return (
         <Box p={4} color="text" bg="hinted"
              sx={{
-                 padding: '3px'
+                 padding: '25px'
              }}>
-            <h3> Kiln Status
-            </h3>
             <ResponsiveContainer width = "100%" aspect={1.6} >
                 <ComposedChart
                     data={tempData}
@@ -65,7 +63,7 @@ export function MainChart(tempData: tempSmoothedProps, profileData: profileDataP
                                angle: 90,
                                position: 'insideRight' }}/>
                     <Tooltip />yAxisId="right-axis" orientation="right"
-                    <Legend verticalAlign="top" height={36}/>
+                    {/*<Legend verticalAlign="top" height={36}/>*/}
                     <Area yAxisId="right-axis"
                           orientation="right"
                           isAnimationActive={false}

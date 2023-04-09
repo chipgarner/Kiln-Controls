@@ -4,11 +4,10 @@ import useWebSocket, {ReadyState} from 'react-use-websocket';
 import {MainChart, tempSmoothedProps} from "./MainChart";
 import FastChart from "./FastChart";
 import labelledNumber from "./labelledeNumber"
-import {TempRates, tempRatesProps, initProps}  from "./TempRates"
+import {StatusTable, tempRatesProps, initProps}  from "./StatusTable"
 import {ThemeProvider, Grid, Box, Button, Container} from 'theme-ui'
 import {handleClickStop, handleClickStart} from "./BackendCalls"
 import {theme} from './TheTheme'
-import "./App.css";
 
 // Example:  const WS_URL = 'ws://127.0.0.1:8081/status';
 // This is needed if the server is running on a different machine than the browser.
@@ -77,25 +76,17 @@ function App() {
 
     return (
         <ThemeProvider theme={theme}>
-            <div
-                sx={{
-                    display: 'flex',
-                    width: ['100%', '100%', '50%'],
-                    bg: 'secondary',
-                    justifyContent: 'space-around'
-                }}
-            >
-                <Button onClick={handleClickStart}>Start</Button>
-                {labelledNumber('The Temperature &deg;C', temp)}
-                {labelledNumber('Target Error', "It should grow")}
-                <Button onClick={handleClickStop}>Stop</Button>
+            <div>
+                {StatusTable(state)}
             </div>
+            <Button onClick={handleClickStart}>Start</Button>
+            <Button onClick={handleClickStop}>Stop</Button>
 
             <Grid gap={2} columns={[1, 1, 2]}>
 
                 {MainChart(smoothedTempData, profileData)}
                 <Grid gap={2} columns={[1, 2, 2]}>
-                    <Box bg="hinted">hinted</Box>
+                    <Box bg="hinted"></Box>
                     {FastChart(tempData, tempDataZ2)}
                     <Box bg="primary">
                         primary
@@ -106,11 +97,8 @@ function App() {
                 </Grid>
                 <Box bg="background">background</Box>
             </Grid>
-            {TempRates(state)}
         </ThemeProvider>
-
     );
-    
 }
 
 export default App;

@@ -8,11 +8,11 @@ function labelledeNumber(label: string, num: number | string) {
         <div
             sx={{
                 display: 'block',
-                minWidth: 120,
+                minWidth: [72, 120, 120],
                 textAlign: 'center',
-                lineHeight: '10px',
+                lineHeight: '0.4',
                 paddingTop: '5px',
-                paddingBottom: '5px',
+                paddingBottom: '7px',
                 bg: 'contrastbg',
                 border: '1px solid',
                 borderColor: 'muted',
@@ -20,7 +20,7 @@ function labelledeNumber(label: string, num: number | string) {
         >
             <Text
                 sx={{
-                    fontSize: 1,
+                    fontSize: ['9px', 16, 16],
                     fontWeight: 'bold',
                 }}
             >
@@ -29,7 +29,7 @@ function labelledeNumber(label: string, num: number | string) {
             <p></p>
             <Text
                 sx={{
-                    fontSize: '42px',
+                    fontSize: ['20px', '42px', '42px'],
                     fontWeight: 'bold',
                 }}
             >
