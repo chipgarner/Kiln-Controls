@@ -27,7 +27,7 @@ type tempDataPropsZ2 = {
     heat_factor: number;
 }[];
 
-const trim_by = - 45;  // Number of recent points to keep
+const trim_by = - 20;  // Number of recent points to keep
 
 function trimmed(tempData: tempDataProps) {
     tempData = tempData.slice(trim_by)

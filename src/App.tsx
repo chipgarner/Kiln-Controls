@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 import useWebSocket, {ReadyState} from 'react-use-websocket';
 import {MainChart, tempSmoothedProps} from "./MainChart";
 import FastChart from "./FastChart";
+import {AllPointsChart, tempDataZonesProps} from "./AllPointsChart"
 import labelledNumber from "./labelledeNumber"
 import {StatusTable, tempRatesProps, initProps}  from "./StatusTable"
 import {ThemeProvider, Grid, Box, Button, Container} from 'theme-ui'
@@ -38,8 +39,9 @@ function App() {
         }
     }, [sendJsonMessage, readyState]);
 
-    const [temp, setTemp] = useState(-273 );
     const [state, setStatus] = useState<tempRatesProps>(initProps)
+    const [tempDataZones, setTempDataZones] = useState<
+        tempDataZonesProps>({"Zone 1": [], Zone2: [], Zone3: []});
 
     const [tempData, setTempData] = useState<
         { time_ms: number, temperature: number, heat_factor: number }[]>([]);
@@ -61,13 +63,11 @@ function App() {
             }
             if (response.state) {
                 setStatus(state => response)
-                console.debug(state)
+
                 setTempData(tempData => [...tempData, ...response.t_t_h_z_all["Zone 1"]]);
+                setTempDataZones(tempDataZones => response.t_t_h_z_all);
                 setTempDataZ2(tempDataZ2 => [...tempDataZ2, ...response.t_t_h_z_all.Zone2]);
                 setSmoothedTempData(smoothedTempData => [...smoothedTempData, response.zone_status["Zone 1"]]);
-                console.debug(smoothedTempData)
-                setTemp(temp => Math.round(response.zone_status["Zone 1"].temperature));
-                console.debug("Temp " + temp)
             }
         } catch (e) {
             console.warn("Not a JSON message " + e);
@@ -86,11 +86,12 @@ function App() {
 
                 {MainChart(smoothedTempData, profileData)}
                 <Grid gap={2} columns={[1, 2, 2]}>
-                    <Box bg="hinted"></Box>
-                    {FastChart(tempData, tempDataZ2)}
                     <Box bg="primary">
                         primary
                     </Box>
+                    {AllPointsChart(tempData, tempDataZ2, tempDataZones)}
+                    {FastChart(tempData, tempDataZ2)}
+
                     <Box bg="muted">
                         muted
                     </Box>
