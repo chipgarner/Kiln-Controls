@@ -67,7 +67,7 @@ function App() {
                 setTempData(tempData => [...tempData, ...response.t_t_h_z_all["Zone 1"]]);
                 setTempDataZones(tempDataZones => response.t_t_h_z_all);
                 setTempDataZ2(tempDataZ2 => [...tempDataZ2, ...response.t_t_h_z_all.Zone2]);
-                setSmoothedTempData(smoothedTempData => [...smoothedTempData, response.zone_status["Zone 1"]]);
+                setSmoothedTempData(smoothedTempData => [...smoothedTempData, response.zones_status_array[0]]);
             }
         } catch (e) {
             console.warn("Not a JSON message " + e);
