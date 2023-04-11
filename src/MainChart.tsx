@@ -35,11 +35,11 @@ type profileDataProps = {
 
 export function MainChart(tempData: tempSmoothedProps, profileData: profileDataProps) {
     return (
-        <Box p={4} color="text" bg="hinted"
+        <Box p={4} color="text" bg="secondary"
              sx={{
                  padding: '25px'
              }}>
-            <ResponsiveContainer width = "100%" aspect={1.6} >
+            <ResponsiveContainer width = "100%" aspect={2} >
                 <ComposedChart
                     data={tempData}
                     barCategoryGap={0}
@@ -83,7 +83,7 @@ export function MainChart(tempData: tempSmoothedProps, profileData: profileDataP
                           isAnimationActive={false}
                           strokeWidth={2}
                           dataKey="temperature"
-                          stroke="#000000"
+                          stroke="darkorange"
                           dot={false} />
                 </ComposedChart>
             </ResponsiveContainer>

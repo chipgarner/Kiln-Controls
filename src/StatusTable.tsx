@@ -1,7 +1,8 @@
 /** @jsxImportSource theme-ui */
-import {useState} from "react";
+import React, {useState} from "react";
 import labelledNumber from "./labelledeNumber"
-import {ThemeProvider} from "theme-ui"
+import {ThemeProvider, Button} from "theme-ui"
+import {handleClickStop, handleClickStart} from "./BackendCalls"
 
 
 export type tempRatesProps = {
@@ -28,15 +29,16 @@ export function initProps() {
     return trp
 }
 
+export type kilnStatusZonesProps = [
+    ...[ time_ms: number, temperature: number, heat_factor: number ],
+][];
+
 function displayZones(kilnState: tempRatesProps) {
     let numZones = Object.keys(kilnState.zones_status_array).length
     switch (numZones) {
         case 3:
             return (
-                <div
-                    sx={{
-                        display: 'block',
-                    }}>
+                <div>
                     <tr>
                         <td>{labelledNumber('Zone 1', 'Top')}</td>
                         <td>{labelledNumber('Temperture \u00b0C', Math.round(kilnState.zones_status_array[0].temperature))}</td>
@@ -72,13 +74,16 @@ function displayZones(kilnState: tempRatesProps) {
     }
 }
 
-export function StatusTable(kilnState: tempRatesProps) {
+export function StatusTable(kilnState: tempRatesProps, kilnStatus: kilnStatusZonesProps) {
+    console.debug(kilnStatus[0])
     return (
         <table
             sx={{
                 bg: 'background',
-                border: '2px solid',
-                borderColor: 'red',
+                border: '5px solid',
+                borderColor: 'secondary',
+                marginLeft: 'auto',
+                marginRight: 'auto'
             }}>
             <thead>
             <tr>
@@ -88,8 +93,10 @@ export function StatusTable(kilnState: tempRatesProps) {
                         justifyContent: 'center',
                         colSpan: 5,
                     }}>
+                    <Button onClick={handleClickStart}>Start</Button>
                     {labelledNumber('Status', kilnState.state)}
                     {labelledNumber('Target \u00b0C', Math.round(kilnState.zones_status_array[0].target))}
+                    <Button onClick={handleClickStop}>Stop</Button>
                 </th>
             </tr>
             </thead>

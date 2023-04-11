@@ -27,7 +27,7 @@ type tempDataPropsZ2 = {
     heat_factor: number;
 }[];
 
-const trim_by = - 20;  // Number of recent points to keep
+const trim_by = - 45;  // Number of recent points to keep
 
 function trimmed(tempData: tempDataProps) {
     tempData = tempData.slice(trim_by)
@@ -43,10 +43,9 @@ function FastChart(tempData: tempDataProps, tempDataZ2: tempDataPropsZ2) {
     return (
         <Box p={4} color="text" bg="hinted"
              sx={{
-                 padding: '3px'
+                 padding: '20px'
              }}>
-            <h3> Thermocouple Noise </h3>
-            <ResponsiveContainer width ="100%" aspect={1.6} >
+            <ResponsiveContainer width ="100%" aspect={2} >
                 <ComposedChart
                     data={trimmed(tempData)}
                     barCategoryGap={0}
@@ -60,7 +59,6 @@ function FastChart(tempData: tempDataProps, tempDataZ2: tempDataPropsZ2) {
                            includeHidden={true}/>
                     <YAxis yAxisId="left-axis"
                            domain={["auto", "auto"]}
-                           // tickFormatter={}
                            label={{ value: 'Temperature',
                                angle: -90,
                                position: 'insideLeft' }}/>
@@ -71,7 +69,7 @@ function FastChart(tempData: tempDataProps, tempDataZ2: tempDataPropsZ2) {
                                angle: 90,
                                position: 'insideRight' }}/>
                     <Tooltip />yAxisId="right-axis" orientation="right"
-                    <Legend verticalAlign="top" height={36}/>
+                    {/*<Legend verticalAlign="top" height={36}/>*/}
                     <Bar yAxisId="right-axis"
                           orientation="right"
                           isAnimationActive={false}

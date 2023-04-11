@@ -5,9 +5,8 @@ import {MainChart, tempSmoothedProps} from "./MainChart";
 import FastChart from "./FastChart";
 import {AllPointsChart, tempDataZonesProps} from "./AllPointsChart"
 import labelledNumber from "./labelledeNumber"
-import {StatusTable, tempRatesProps, initProps}  from "./StatusTable"
+import {StatusTable, tempRatesProps, initProps} from "./StatusTable"
 import {ThemeProvider, Grid, Box, Button, Container} from 'theme-ui'
-import {handleClickStop, handleClickStart} from "./BackendCalls"
 import {theme} from './TheTheme'
 
 // Example:  const WS_URL = 'ws://127.0.0.1:8081/status';
@@ -41,7 +40,7 @@ function App() {
 
     const [state, setStatus] = useState<tempRatesProps>(initProps)
     const [tempDataZones, setTempDataZones] = useState<
-        tempDataZonesProps>({"Zone 1": [], Zone2: [], Zone3: []});
+        tempDataZonesProps>([]);
 
     const [tempData, setTempData] = useState<
         { time_ms: number, temperature: number, heat_factor: number }[]>([]);
@@ -63,10 +62,11 @@ function App() {
             }
             if (response.state) {
                 setStatus(state => response)
+                setTempDataZones(tempDataZones => response.tthz);
 
-                setTempData(tempData => [...tempData, ...response.t_t_h_z_all["Zone 1"]]);
-                setTempDataZones(tempDataZones => response.t_t_h_z_all);
-                setTempDataZ2(tempDataZ2 => [...tempDataZ2, ...response.t_t_h_z_all.Zone2]);
+                setTempData(tempData => [...tempData, ...response.tthz[0]]);
+                setTempDataZ2(tempDataZ2 => [...tempDataZ2, ...response.tthz[1]]);
+
                 setSmoothedTempData(smoothedTempData => [...smoothedTempData, response.zones_status_array[0]]);
             }
         } catch (e) {
@@ -76,27 +76,15 @@ function App() {
 
     return (
         <ThemeProvider theme={theme}>
-            <div>
-                {StatusTable(state)}
-            </div>
-            <Button onClick={handleClickStart}>Start</Button>
-            <Button onClick={handleClickStop}>Stop</Button>
-
-            <Grid gap={2} columns={[1, 1, 2]}>
-
+            <Grid gap={1} columns={[1, 1, 2]} margin={1}>
                 {MainChart(smoothedTempData, profileData)}
-                <Grid gap={2} columns={[1, 2, 2]}>
-                    <Box bg="primary">
-                        primary
-                    </Box>
-                    {AllPointsChart(tempData, tempDataZ2, tempDataZones)}
+                <Grid gap={1} columns={[1, 2, 2]}>
+                    {AllPointsChart(tempDataZones)}
                     {FastChart(tempData, tempDataZ2)}
-
-                    <Box bg="muted">
-                        muted
-                    </Box>
+                    {AllPointsChart(tempDataZones)}
+                    {FastChart(tempData, tempDataZ2)}
                 </Grid>
-                <Box bg="background">background</Box>
+                    {StatusTable(state, tempDataZones)}
             </Grid>
         </ThemeProvider>
     );

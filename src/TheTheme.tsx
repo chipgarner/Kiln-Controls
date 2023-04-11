@@ -44,7 +44,7 @@ export const theme: Theme = {
         modes: {
             dark: {
                 text: 'white',
-                background: '#330000',
+                background: '#440000',
                 primary: '#660000',
                 secondary: '#2d2d86',
                 muted: '#b9b9bb',
@@ -65,6 +65,6 @@ export const theme: Theme = {
         },
     },
     breakpoints: [
-        '30em', '60em', '120em',
+        '44em', '75em', '120em',
     ],
 }
