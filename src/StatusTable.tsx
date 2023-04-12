@@ -4,7 +4,6 @@ import labelledNumber from "./labelledeNumber"
 import {ThemeProvider, Button} from "theme-ui"
 import {handleClickStop, handleClickStart} from "./BackendCalls"
 
-
 export type tempRatesProps = {
     state: string,
     zones_status_array: [
@@ -28,10 +27,6 @@ export function initProps() {
     }
     return trp
 }
-
-export type kilnStatusZonesProps = [
-    ...[ time_ms: number, temperature: number, heat_factor: number ],
-][];
 
 function displayZones(kilnState: tempRatesProps) {
     let numZones = Object.keys(kilnState.zones_status_array).length
@@ -74,8 +69,7 @@ function displayZones(kilnState: tempRatesProps) {
     }
 }
 
-export function StatusTable(kilnState: tempRatesProps, kilnStatus: kilnStatusZonesProps) {
-    console.debug(kilnStatus[0])
+export function StatusTable(kilnState: tempRatesProps) {
     return (
         <table
             sx={{

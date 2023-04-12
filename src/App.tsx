@@ -8,6 +8,7 @@ import labelledNumber from "./labelledeNumber"
 import {StatusTable, tempRatesProps, initProps} from "./StatusTable"
 import {ThemeProvider, Grid, Box, Button, Container} from 'theme-ui'
 import {theme} from './TheTheme'
+import {fastDataProps} from './dataHandler'
 
 // Example:  const WS_URL = 'ws://127.0.0.1:8081/status';
 // This is needed if the server is running on a different machine than the browser.
@@ -42,6 +43,9 @@ function App() {
     const [tempDataZones, setTempDataZones] = useState<
         tempDataZonesProps>([]);
 
+    const [fastData, setFastData] = useState<
+        fastDataProps>([]);
+
     const [tempData, setTempData] = useState<
         { time_ms: number, temperature: number, heat_factor: number }[]>([]);
     const [tempDataZ2, setTempDataZ2] = useState<
@@ -64,10 +68,16 @@ function App() {
                 setStatus(state => response)
                 setTempDataZones(tempDataZones => response.tthz);
 
+                setFastData(fastDataProps => [...fastData,  ...response.tthz])
+                console.debug("fastData length: " + fastData.length.toString())
+                console.debug(fastData)
+
                 setTempData(tempData => [...tempData, ...response.tthz[0]]);
                 setTempDataZ2(tempDataZ2 => [...tempDataZ2, ...response.tthz[1]]);
+                console.debug("tempData lenghth: " + tempData.length.toString())
 
                 setSmoothedTempData(smoothedTempData => [...smoothedTempData, response.zones_status_array[0]]);
+                console.debug("smootherTempData lenghth: " + smoothedTempData.length.toString())
             }
         } catch (e) {
             console.warn("Not a JSON message " + e);
@@ -84,7 +94,7 @@ function App() {
                     {AllPointsChart(tempDataZones)}
                     {FastChart(tempData, tempDataZ2)}
                 </Grid>
-                    {StatusTable(state, tempDataZones)}
+                    {StatusTable(state)}
             </Grid>
         </ThemeProvider>
     );

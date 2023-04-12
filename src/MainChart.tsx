@@ -44,10 +44,10 @@ export function MainChart(tempData: tempSmoothedProps, profileData: profileDataP
                     data={tempData}
                     barCategoryGap={0}
                     margin={{ top: 0, right: 0, left: 0, bottom: 0 }} >
-                    <CartesianGrid strokeDasharray="4" fill="white"/>
+                    <CartesianGrid strokeDasharray="4" fill= "white"/>
                     <XAxis dataKey="time_ms"
                            label={{ value: 'Time', position: 'bottom'}}
-                           domain={["dataMin - 100000", "dataMax + 100000"]}
+                           domain={["dataMin - 100000", "dataMax + 3600000"]}
                            allowDataOverflow={false}
                            tickFormatter = {(unixTime) => moment(unixTime).format('HH:mm')}
                            type="number"
