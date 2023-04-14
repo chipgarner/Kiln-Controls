@@ -23,7 +23,7 @@ export function AllPointsChart(tempDataZones: tempDataZonesProps) {
     console.debug('Chart')
     console.debug(tempDataZones)
     return (
-        <Box p={4} color="text" bg="secondary"
+        <Box color="text" bg="secondary"
              sx={{
                  padding: '20px'
              }}>

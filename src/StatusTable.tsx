@@ -35,21 +35,21 @@ function displayZones(kilnState: tempRatesProps) {
             return (
                 <div>
                     <tr>
-                        <td>{labelledNumber('Zone 1', 'Top')}</td>
+                        <td>{labelledNumber('Zone 1', 'Top', 'red')}</td>
                         <td>{labelledNumber('Temperture \u00b0C', Math.round(kilnState.zones_status_array[0].temperature))}</td>
                         <td>{labelledNumber('Slope \u00b0C/hr', Math.round(kilnState.zones_status_array[0].slope))}</td>
                         <td>{labelledNumber('Heat factor %', Math.round(kilnState.zones_status_array[0].heat_factor * 100))}</td>
                         <td>{labelledNumber('Std  deviation', kilnState.zones_status_array[0].pstdev.toFixed(2))}</td>
                     </tr>
                     <tr>
-                        <td>{labelledNumber('Zone 2', 'Middle')}</td>
+                        <td>{labelledNumber('Zone 2', 'Middle', 'green')}</td>
                         <td>{labelledNumber('Temperture \u00b0C', Math.round(kilnState.zones_status_array[1].temperature))}</td>
                         <td>{labelledNumber('Slope \u00b0C/hr', Math.round(kilnState.zones_status_array[1].slope))}</td>
                         <td>{labelledNumber('Heat factor %', Math.round(kilnState.zones_status_array[1].heat_factor * 100))}</td>
                         <td>{labelledNumber('Std  deviation', kilnState.zones_status_array[1].pstdev.toFixed(2))}</td>
                     </tr>
                     <tr>
-                        <td>{labelledNumber('Zone 3', 'Bottom')}</td>
+                        <td>{labelledNumber('Zone 3', 'Bottom', 'blue')}</td>
                         <td>{labelledNumber('Temperture \u00b0C', Math.round(kilnState.zones_status_array[2].temperature))}</td>
                         <td>{labelledNumber('Slope \u00b0C/hr', Math.round(kilnState.zones_status_array[2].slope))}</td>
                         <td>{labelledNumber('Heat factor %', Math.round(kilnState.zones_status_array[2].heat_factor * 100))}</td>

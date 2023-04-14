@@ -53,6 +53,8 @@ function App() {
         { time_ms: number, temperature: number, heat_factor: number }[]>([]);
     const [tempDataZ2, setTempDataZ2] = useState<
         { time_ms: number, temperature: number, heat_factor: number }[]>([]);
+    const [tempDataZ3, setTempDataZ3] = useState<
+        { time_ms: number, temperature: number, heat_factor: number }[]>([]);
 
     const [smoothedZone1, setSmoothedZone1] = useState<tempDataProps>([]);
     const [smoothedZone2, setSmoothedZone2] = useState<tempDataProps>([]);
@@ -84,6 +86,7 @@ function App() {
 
                 setTempData(tempData => [...tempData, ...response.tthz[0]]);
                 setTempDataZ2(tempDataZ2 => [...tempDataZ2, ...response.tthz[1]]);
+                setTempDataZ3(tempDataZ3 => [...tempDataZ3, ...response.tthz[2]]);
                 console.debug("tempData lenghth: " + tempData.length.toString())
 
                 let numZones = response.zones_status_array.length
@@ -117,15 +120,20 @@ function App() {
 
     return (
         <ThemeProvider theme={theme}>
+            <Grid gap={1} columns={[1, 1, 3]} margin={1}>
+            {StatusTable(state)}
+                {LastNchart(profileData, smoothedZone1, smoothedZone2, smoothedZone3, smoothedZone4, -120)}
+                {LastNchart(profileData, smoothedZone1, smoothedZone2, smoothedZone3, smoothedZone4, -12)}
+            {/*{AllPointsChart(tempDataZones)}*/}
+            </Grid>
             <Grid gap={1} columns={[1, 1, 2]} margin={1}>
+
                 {MainChart(smoothedZone1, smoothedZone2, smoothedZone3, smoothedZone4, profileData)}
                 <Grid gap={1} columns={[1, 2, 2]}>
-                    {LastNchart(smoothedZone1, smoothedZone2, smoothedZone3, smoothedZone4)}
-                    {FastChart(tempData, tempDataZ2)}
-                    {AllPointsChart(tempDataZones)}
-                    {FastChart(tempData, tempDataZ2)}
+                    {FastChart(tempData, smoothedZone1, 1)}
+                    {FastChart(tempDataZ2, smoothedZone2, 2)}
+                    {FastChart(tempDataZ3, smoothedZone3, 3)}
                 </Grid>
-                    {StatusTable(state)}
             </Grid>
         </ThemeProvider>
     );

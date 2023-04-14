@@ -35,7 +35,7 @@ export const theme: Theme = {
     colors: {
         text: 'black',
         background: '#7078d3',
-        primary: '#fcfc6c',
+        primary: '#fec601',
         secondary: '#cce6ff',
         muted: '#b9b9bb',
         hinted: 'aliceblue',

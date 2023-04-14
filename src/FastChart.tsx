@@ -21,31 +21,35 @@ type tempDataProps = {
     heat_factor: number;
 }[];
 
-type tempDataPropsZ2 = {
-    time_ms: number;
-    temperature: number;
-    heat_factor: number;
-}[];
+function FastChart(tempData: tempDataProps, smoothedTempData: tempDataProps, zone: number) {
+    let temps = tempData.slice(-60)
+    let tempsSmoothed = smoothedTempData.slice(-6)
 
-const trim_by = - 45;  // Number of recent points to keep
+    let line_color: string = "#F00";
+    let fill_color: string = "rgba(255, 0, 0, 0.5)";
+    switch (zone) {
+        case 2:
+            line_color = "#090";
+            fill_color = "rgba(0, 255, 0, 0.5)";
+            break;
+        case 3:
+            line_color = "#00F";
+            fill_color = "rgba(0, 0, 255, 0.6)";
+            break;
+        case 4:
+            line_color = "#FF0";
+            fill_color = "rgba(255, 255, 0, 0.5)";
+            break;
 
-function trimmed(tempData: tempDataProps) {
-    return tempData.slice(trim_by)
-};
-function trimmedZ2(tempDataZ2: tempDataPropsZ2) {
-    tempDataZ2 = tempDataZ2.slice(trim_by)
-    return tempDataZ2;
-};
-
-function FastChart(tempData: tempDataProps, tempDataZ2: tempDataPropsZ2) {
+    }
     return (
-        <Box p={4} color="text" bg="hinted"
+        <Box color="text" bg="primary"
              sx={{
-                 padding: '20px'
+                 padding: '20px',
              }}>
             <ResponsiveContainer width ="100%" aspect={2} >
                 <ComposedChart
-                    data={trimmed(tempData)}
+                    data={temps}
                     barCategoryGap={0}
                     margin={{ top: 0, right: 0, left: 0, bottom: 0 }} >
                     <CartesianGrid strokeDasharray="4" fill="white"/>
@@ -68,26 +72,27 @@ function FastChart(tempData: tempDataProps, tempDataZ2: tempDataPropsZ2) {
                                position: 'insideRight' }}/>
                     <Tooltip />yAxisId="right-axis" orientation="right"
                     {/*<Legend verticalAlign="top" height={36}/>*/}
-                    <Bar yAxisId="right-axis"
+                    <Area yAxisId="right-axis"
                           orientation="right"
                           isAnimationActive={false}
                           dataKey="heat_factor"
-                          stroke="rgba(30, 144, 255, 0.3)"
-                          fill="rgba(30, 144, 255, 0.3)" />
+                          stroke={fill_color}
+                          fill={fill_color} />
                     <Line yAxisId="left-axis"
+                          data={temps}
                           type="linear"
                           isAnimationActive={true}
                           strokeWidth={3}
                           dataKey="temperature"
-                          stroke="#880000"
+                          stroke={line_color}
                           dot={false} />
                     <Line yAxisId="left-axis"
-                          data={trimmedZ2(tempDataZ2)}
+                          data={tempsSmoothed}
                           type="linear"
                           isAnimationActive={true}
                           strokeWidth={3}
                           dataKey="temperature"
-                          stroke="#008800"
+                          stroke="#F0F"
                           dot={false} />
                 </ComposedChart>
             </ResponsiveContainer>

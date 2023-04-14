@@ -3,7 +3,12 @@ import React from "react";
 import {Text} from "theme-ui"
 
 // This could probably be much simpler.
-function labelledeNumber(label: string, num: number | string) {
+function labelledeNumber(label: string, num: number | string, background_color?: string) {
+    let backg = 'contrastbg'
+    if (background_color) {
+        backg = background_color
+    }
+
     return (
         <div
             sx={{
@@ -13,7 +18,7 @@ function labelledeNumber(label: string, num: number | string) {
                 lineHeight: '0.4',
                 paddingTop: '5px',
                 paddingBottom: '7px',
-                bg: 'contrastbg',
+                bg: backg,
                 border: '1px solid',
                 borderColor: 'muted',
             }}
