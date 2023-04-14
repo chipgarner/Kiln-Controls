@@ -1,14 +1,15 @@
 /** @jsxImportSource theme-ui */
 import React, {useEffect, useState} from 'react';
 import useWebSocket, {ReadyState} from 'react-use-websocket';
-import {MainChart, tempSmoothedProps} from "./MainChart";
+import {MainChart, tempDataProps} from "./MainChart";
+import {LastNchart} from "./LastNchart"
 import FastChart from "./FastChart";
 import {AllPointsChart, tempDataZonesProps} from "./AllPointsChart"
 import labelledNumber from "./labelledeNumber"
 import {StatusTable, tempRatesProps, initProps} from "./StatusTable"
 import {ThemeProvider, Grid, Box, Button, Container} from 'theme-ui'
 import {theme} from './TheTheme'
-import {fastDataProps} from './dataHandler'
+import {fastDataProps, zonesStatusProps} from './dataHandler'
 
 // Example:  const WS_URL = 'ws://127.0.0.1:8081/status';
 // This is needed if the server is running on a different machine than the browser.
@@ -45,13 +46,18 @@ function App() {
 
     const [fastData, setFastData] = useState<
         fastDataProps>([]);
+    const [zonesStatus, setZonesStatus] = useState<
+        zonesStatusProps>([]);
 
     const [tempData, setTempData] = useState<
         { time_ms: number, temperature: number, heat_factor: number }[]>([]);
     const [tempDataZ2, setTempDataZ2] = useState<
         { time_ms: number, temperature: number, heat_factor: number }[]>([]);
-    const [smoothedTempData, setSmoothedTempData] = useState<
-        tempSmoothedProps>([]);
+
+    const [smoothedZone1, setSmoothedZone1] = useState<tempDataProps>([]);
+    const [smoothedZone2, setSmoothedZone2] = useState<tempDataProps>([]);
+    const [smoothedZone3, setSmoothedZone3] = useState<tempDataProps>([]);
+    const [smoothedZone4, setSmoothedZone4] = useState<tempDataProps>([]);
     const [profileData, setProfile] = useState<
         { time_ms: number, temperature: number }[]>([]);
 
@@ -68,6 +74,10 @@ function App() {
                 setStatus(state => response)
                 setTempDataZones(tempDataZones => response.tthz);
 
+                setZonesStatus(zonesStatus => [...zonesStatus, response.zones_status_array])
+                console.debug("zonesStatus length: " + zonesStatus.length.toString())
+                console.debug(zonesStatus)
+
                 setFastData(fastDataProps => [...fastData,  ...response.tthz])
                 console.debug("fastData length: " + fastData.length.toString())
                 console.debug(fastData)
@@ -76,8 +86,29 @@ function App() {
                 setTempDataZ2(tempDataZ2 => [...tempDataZ2, ...response.tthz[1]]);
                 console.debug("tempData lenghth: " + tempData.length.toString())
 
-                setSmoothedTempData(smoothedTempData => [...smoothedTempData, response.zones_status_array[0]]);
-                console.debug("smootherTempData lenghth: " + smoothedTempData.length.toString())
+                let numZones = response.zones_status_array.length
+                setSmoothedZone1(smoothedZone1 => [...smoothedZone1, response.zones_status_array[0]]);
+                switch (numZones) {
+                    case 2:
+                        setSmoothedZone2(smoothedZone2 => [...smoothedZone2, response.zones_status_array[1]]);
+                        break;
+                    case 3:
+                        setSmoothedZone2(smoothedZone2 => [...smoothedZone2, response.zones_status_array[1]]);
+                        setSmoothedZone3(smoothedZone3 => [...smoothedZone3, response.zones_status_array[2]]);
+                        break;
+                    case 4:
+                        setSmoothedZone2(smoothedZone2 => [...smoothedZone2, response.zones_status_array[1]]);
+                        setSmoothedZone3(smoothedZone3 => [...smoothedZone3, response.zones_status_array[2]]);
+                        setSmoothedZone4(smoothedZone4 => [...smoothedZone4, response.zones_status_array[3]]);
+                }
+                console.debug("smootherTempData lenghth: " + smoothedZone1.length.toString())
+                console.debug(smoothedZone1)
+                console.debug("smootherTempData lenghth: " + smoothedZone2.length.toString())
+                console.debug(smoothedZone2)
+                console.debug("smootherTempData lenghth: " + smoothedZone3.length.toString())
+                console.debug(smoothedZone3)
+                console.debug("smootherTempData lenghth: " + smoothedZone4.length.toString())
+                console.debug(smoothedZone4)
             }
         } catch (e) {
             console.warn("Not a JSON message " + e);
@@ -87,9 +118,9 @@ function App() {
     return (
         <ThemeProvider theme={theme}>
             <Grid gap={1} columns={[1, 1, 2]} margin={1}>
-                {MainChart(smoothedTempData, profileData)}
+                {MainChart(smoothedZone1, smoothedZone2, smoothedZone3, smoothedZone4, profileData)}
                 <Grid gap={1} columns={[1, 2, 2]}>
-                    {AllPointsChart(tempDataZones)}
+                    {LastNchart(smoothedZone1, smoothedZone2, smoothedZone3, smoothedZone4)}
                     {FastChart(tempData, tempDataZ2)}
                     {AllPointsChart(tempDataZones)}
                     {FastChart(tempData, tempDataZ2)}

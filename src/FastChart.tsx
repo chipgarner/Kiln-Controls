@@ -30,8 +30,7 @@ type tempDataPropsZ2 = {
 const trim_by = - 45;  // Number of recent points to keep
 
 function trimmed(tempData: tempDataProps) {
-    tempData = tempData.slice(trim_by) // This doesn't trim the state data.
-    return tempData;
+    return tempData.slice(trim_by)
 };
 function trimmedZ2(tempDataZ2: tempDataPropsZ2) {
     tempDataZ2 = tempDataZ2.slice(trim_by)
