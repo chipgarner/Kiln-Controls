@@ -72,7 +72,7 @@ export function LastNchart(profileData: profileDataProps,smoothedZone1: tempData
                                position: 'insideRight'
                            }}/>
                     <Area yAxisId="right-axis"
-                          data={trimmed(smoothedZone2)}
+                          data={trimmed(smoothedZone3)}
                           orientation="right"
                           isAnimationActive={false}
                           dataKey="heat_factor"
@@ -80,7 +80,7 @@ export function LastNchart(profileData: profileDataProps,smoothedZone1: tempData
                           fill="rgba(0, 255, 0, 0.5)"
                     />
                     <Area yAxisId="right-axis"
-                          data={trimmed(smoothedZone3)}
+                          data={trimmed(smoothedZone2)}
                           orientation="right"
                           isAnimationActive={false}
                           dataKey="heat_factor"
@@ -110,7 +110,7 @@ export function LastNchart(profileData: profileDataProps,smoothedZone1: tempData
                           dot={false}/>
 
                     <Line yAxisId="left-axis"
-                          data={trimmed(smoothedZone2)}
+                          data={trimmed(smoothedZone3)}
                           type="linear"
                           isAnimationActive={false}
                           strokeWidth={3}
@@ -118,7 +118,7 @@ export function LastNchart(profileData: profileDataProps,smoothedZone1: tempData
                           stroke="#00FF00"
                           dot={false}/>
                     <Line yAxisId="left-axis"
-                          data={trimmed(smoothedZone3)}
+                          data={trimmed(smoothedZone2)}
                           type="linear"
                           isAnimationActive={false}
                           strokeWidth={3}

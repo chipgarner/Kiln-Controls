@@ -31,6 +31,36 @@ export function initProps() {
 function displayZones(kilnState: tempRatesProps) {
     let numZones = Object.keys(kilnState.zones_status_array).length
     switch (numZones) {
+        case 1:
+            return (
+                <div>
+                    <tr>
+                        <td>{labelledNumber('Temperture \u00b0C', Math.round(kilnState.zones_status_array[0].temperature))}</td>
+                        <td>{labelledNumber('Slope \u00b0C/hr', Math.round(kilnState.zones_status_array[0].slope))}</td>
+                        <td>{labelledNumber('Heat factor %', Math.round(kilnState.zones_status_array[0].heat_factor * 100))}</td>
+                        <td>{labelledNumber('Std  deviation', kilnState.zones_status_array[0].pstdev.toFixed(2))}</td>
+                    </tr>
+                </div>
+            )
+        case 2:
+            return (
+                <div>
+                    <tr>
+                        <td>{labelledNumber('Zone 1', 'Top', 'red')}</td>
+                        <td>{labelledNumber('Temperture \u00b0C', Math.round(kilnState.zones_status_array[0].temperature))}</td>
+                        <td>{labelledNumber('Slope \u00b0C/hr', Math.round(kilnState.zones_status_array[0].slope))}</td>
+                        <td>{labelledNumber('Heat factor %', Math.round(kilnState.zones_status_array[0].heat_factor * 100))}</td>
+                        <td>{labelledNumber('Std  deviation', kilnState.zones_status_array[0].pstdev.toFixed(2))}</td>
+                    </tr>
+                    <tr>
+                        <td>{labelledNumber('Zone 2', 'Bottom', 'blue')}</td>
+                        <td>{labelledNumber('Temperture \u00b0C', Math.round(kilnState.zones_status_array[1].temperature))}</td>
+                        <td>{labelledNumber('Slope \u00b0C/hr', Math.round(kilnState.zones_status_array[1].slope))}</td>
+                        <td>{labelledNumber('Heat factor %', Math.round(kilnState.zones_status_array[1].heat_factor * 100))}</td>
+                        <td>{labelledNumber('Std  deviation', kilnState.zones_status_array[1].pstdev.toFixed(2))}</td>
+                    </tr>
+                </div>
+            )
         case 3:
             return (
                 <div>
@@ -42,29 +72,53 @@ function displayZones(kilnState: tempRatesProps) {
                         <td>{labelledNumber('Std  deviation', kilnState.zones_status_array[0].pstdev.toFixed(2))}</td>
                     </tr>
                     <tr>
-                        <td>{labelledNumber('Zone 2', 'Middle', 'green')}</td>
+                        <td>{labelledNumber('Zone 2', 'Middle', 'blue')}</td>
                         <td>{labelledNumber('Temperture \u00b0C', Math.round(kilnState.zones_status_array[1].temperature))}</td>
                         <td>{labelledNumber('Slope \u00b0C/hr', Math.round(kilnState.zones_status_array[1].slope))}</td>
                         <td>{labelledNumber('Heat factor %', Math.round(kilnState.zones_status_array[1].heat_factor * 100))}</td>
                         <td>{labelledNumber('Std  deviation', kilnState.zones_status_array[1].pstdev.toFixed(2))}</td>
                     </tr>
                     <tr>
-                        <td>{labelledNumber('Zone 3', 'Bottom', 'blue')}</td>
+                        <td>{labelledNumber('Zone 3', 'Bottom', 'green')}</td>
                         <td>{labelledNumber('Temperture \u00b0C', Math.round(kilnState.zones_status_array[2].temperature))}</td>
                         <td>{labelledNumber('Slope \u00b0C/hr', Math.round(kilnState.zones_status_array[2].slope))}</td>
                         <td>{labelledNumber('Heat factor %', Math.round(kilnState.zones_status_array[2].heat_factor * 100))}</td>
                         <td>{labelledNumber('Std  deviation', kilnState.zones_status_array[2].pstdev.toFixed(2))}</td>
-
                     </tr>
-
                 </div>
             )
         case 4:
             return (
-                <span>
-                        {labelledNumber('Temperture', Math.round(kilnState.zones_status_array[0].temperature))}
-
-                    </span>
+                <div>
+                    <tr>
+                        <td>{labelledNumber('Zone 1', 'Top', 'red')}</td>
+                        <td>{labelledNumber('Temperture \u00b0C', Math.round(kilnState.zones_status_array[0].temperature))}</td>
+                        <td>{labelledNumber('Slope \u00b0C/hr', Math.round(kilnState.zones_status_array[0].slope))}</td>
+                        <td>{labelledNumber('Heat factor %', Math.round(kilnState.zones_status_array[0].heat_factor * 100))}</td>
+                        <td>{labelledNumber('Std  deviation', kilnState.zones_status_array[0].pstdev.toFixed(2))}</td>
+                    </tr>
+                    <tr>
+                        <td>{labelledNumber('Zone 2', 'M Top', 'blue')}</td>
+                        <td>{labelledNumber('Temperture \u00b0C', Math.round(kilnState.zones_status_array[1].temperature))}</td>
+                        <td>{labelledNumber('Slope \u00b0C/hr', Math.round(kilnState.zones_status_array[1].slope))}</td>
+                        <td>{labelledNumber('Heat factor %', Math.round(kilnState.zones_status_array[1].heat_factor * 100))}</td>
+                        <td>{labelledNumber('Std  deviation', kilnState.zones_status_array[1].pstdev.toFixed(2))}</td>
+                    </tr>
+                    <tr>
+                        <td>{labelledNumber('Zone 3', 'M Bot', 'green')}</td>
+                        <td>{labelledNumber('Temperture \u00b0C', Math.round(kilnState.zones_status_array[2].temperature))}</td>
+                        <td>{labelledNumber('Slope \u00b0C/hr', Math.round(kilnState.zones_status_array[2].slope))}</td>
+                        <td>{labelledNumber('Heat factor %', Math.round(kilnState.zones_status_array[2].heat_factor * 100))}</td>
+                        <td>{labelledNumber('Std  deviation', kilnState.zones_status_array[2].pstdev.toFixed(2))}</td>
+                    </tr>
+                    <tr>
+                        <td>{labelledNumber('Zone 4', 'Bottom', 'yellow')}</td>
+                        <td>{labelledNumber('Temperture \u00b0C', Math.round(kilnState.zones_status_array[3].temperature))}</td>
+                        <td>{labelledNumber('Slope \u00b0C/hr', Math.round(kilnState.zones_status_array[3].slope))}</td>
+                        <td>{labelledNumber('Heat factor %', Math.round(kilnState.zones_status_array[3].heat_factor * 100))}</td>
+                        <td>{labelledNumber('Std  deviation', kilnState.zones_status_array[3].pstdev.toFixed(2))}</td>
+                    </tr>
+                </div>
             )
     }
 }

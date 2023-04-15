@@ -12,17 +12,7 @@ import {CartesianGrid,
 import moment from "moment/moment";
 import { Box, Button  } from 'theme-ui'
 import React from "react";
-
-export type tempDataProps = {
-    time_ms: number;
-    temperature: number;
-    heat_factor: number;
-}[];
-
-type profileDataProps = {
-    time_ms: number;
-    temperature: number;
-}[];
+import {profileDataProps, tempDataProps} from './dataHandler'
 
 export function MainChart(tempData: tempDataProps,
                           smoothedZone2: tempDataProps,
@@ -30,16 +20,18 @@ export function MainChart(tempData: tempDataProps,
                           smoothedZone4: tempDataProps,
                           profileData: profileDataProps) {
     return (
-        <Box color="text" bg="secondary"
+        <Box color="text" bg="background"
              sx={{
-                 padding: '25px'
+                 padding: '25px',
+                 border: '5px solid',
+                 borderColor: 'secondary',
              }}>
             <ResponsiveContainer width = "100%" aspect={2} >
                 <ComposedChart
                     data={tempData}
                     barCategoryGap={0}
                     margin={{ top: 0, right: 0, left: 0, bottom: 0 }} >
-                    <CartesianGrid strokeDasharray="4" fill= "black"/>
+                    <CartesianGrid strokeDasharray="4" fill= "#ededef"/>
                     <XAxis dataKey="time_ms"
                            label={{ value: 'Time', position: 'bottom'}}
                            domain={["dataMin - 100000", "dataMax + 300000"]}
@@ -51,12 +43,12 @@ export function MainChart(tempData: tempDataProps,
                            label={{ value: 'Temperature',
                                angle: -90,
                                position: 'insideLeft' }}/>
-                    {/*<YAxis yAxisId="right-axis"*/}
-                    {/*       orientation="right"*/}
-                    {/*       domain={[0, 1]}*/}
-                    {/*       label={{ value: 'Heat Factor',*/}
-                    {/*           angle: 90,*/}
-                    {/*           position: 'insideRight' }}/>*/}
+                    <YAxis yAxisId="right-axis"
+                           orientation="right"
+                           domain={[0, 1]}
+                           label={{ value: 'Heat Factor',
+                               angle: 90,
+                               position: 'insideRight' }}/>
                     {/*<Tooltip />yAxisId="right-axis" orientation="right"*/}
                     {/*<Legend verticalAlign="top" height={36}/>*/}
                     {/*<Area yAxisId="right-axis"*/}
@@ -93,7 +85,7 @@ export function MainChart(tempData: tempDataProps,
                           isAnimationActive={false}
                           strokeWidth={3}
                           dataKey="temperature"
-                          stroke="gold"
+                          stroke="#fcae05"
                           dot={false} />
                     <Line yAxisId="left-axis"
                           data={smoothedZone2}
@@ -101,7 +93,7 @@ export function MainChart(tempData: tempDataProps,
                           isAnimationActive={false}
                           strokeWidth={3}
                           dataKey="temperature"
-                          stroke="#00FF00"
+                          stroke="#0000FF"
                           dot={false} />
                     <Line yAxisId="left-axis"
                           data={smoothedZone3}
@@ -109,7 +101,7 @@ export function MainChart(tempData: tempDataProps,
                           isAnimationActive={false}
                           strokeWidth={3}
                           dataKey="temperature"
-                          stroke="#0000FF"
+                          stroke="#00FF00"
                           dot={false} />
                     <Line yAxisId="left-axis"
                           data={smoothedZone4}
@@ -117,7 +109,7 @@ export function MainChart(tempData: tempDataProps,
                           isAnimationActive={false}
                           strokeWidth={3}
                           dataKey="temperature"
-                          stroke="#FFFF00"
+                          stroke="#fcae05"
                           dot={false} />
                     <Line yAxisId="left-axis"
                           type="linear"

@@ -34,8 +34,8 @@ export const theme: Theme = {
     },
     colors: {
         text: 'black',
-        background: '#7078d3',
-        primary: '#fec601',
+        background: '#898cd6',
+        primary: '#fcf2ae',
         secondary: '#cce6ff',
         muted: '#b9b9bb',
         hinted: 'aliceblue',
@@ -58,7 +58,7 @@ export const theme: Theme = {
         primary: {
             borderRadius: 0,
             color: 'text',
-            bg: 'primary',
+            bg: 'gold',
             '&:hover': {
                 bg: 'secondary',
             }

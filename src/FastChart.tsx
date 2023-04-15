@@ -14,6 +14,7 @@ import {CartesianGrid,
 import moment from "moment/moment";
 import React from "react";
 import { Box } from 'theme-ui'
+import {theme} from './TheTheme'
 
 type tempDataProps = {
     time_ms: number;
@@ -22,28 +23,36 @@ type tempDataProps = {
 }[];
 
 function FastChart(tempData: tempDataProps, smoothedTempData: tempDataProps, zone: number) {
-    let temps = tempData.slice(-60)
-    let tempsSmoothed = smoothedTempData.slice(-6)
+    let temps = tempData.slice(-90)
+    let tempsSmoothed = smoothedTempData.slice(-8)
+
+    // @ts-ignore
+    let chart_fill = theme.colors.modes.dark.contrastbg
+    // @ts-ignore
+    let chart_fill_color = chart_fill.toString()
+    console.debug(chart_fill_color)
 
     let line_color: string = "#F00";
     let fill_color: string = "rgba(255, 0, 0, 0.5)";
     switch (zone) {
-        case 2:
+        case 3:
             line_color = "#090";
             fill_color = "rgba(0, 255, 0, 0.5)";
             break;
-        case 3:
+        case 2:
             line_color = "#00F";
             fill_color = "rgba(0, 0, 255, 0.6)";
             break;
         case 4:
-            line_color = "#FF0";
+            line_color = "#fcae05";
             fill_color = "rgba(255, 255, 0, 0.5)";
             break;
 
     }
+    // @ts-ignore
+    // @ts-ignore
     return (
-        <Box color="text" bg="primary"
+        <Box color="text" bg="secondary"
              sx={{
                  padding: '20px',
              }}>
@@ -52,7 +61,7 @@ function FastChart(tempData: tempDataProps, smoothedTempData: tempDataProps, zon
                     data={temps}
                     barCategoryGap={0}
                     margin={{ top: 0, right: 0, left: 0, bottom: 0 }} >
-                    <CartesianGrid strokeDasharray="4" fill="white"/>
+                    <CartesianGrid strokeDasharray="4" fill={chart_fill_color}/>
                     <XAxis dataKey="time_ms"
                            label={{ value: 'Time', position: 'bottom'}}
                            domain={["dataMin", "dataMax"]}
