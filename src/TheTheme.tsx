@@ -43,7 +43,7 @@ export const theme: Theme = {
         border: 'red',
         modes: {
             dark: {
-                text: 'white',
+                text: 'lightgray',
                 background: '#440000',
                 primary: '#660000',
                 secondary: '#2d2d86',

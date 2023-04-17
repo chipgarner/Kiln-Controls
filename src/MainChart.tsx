@@ -18,7 +18,8 @@ export function MainChart(tempData: tempDataProps,
                           smoothedZone2: tempDataProps,
                           smoothedZone3: tempDataProps,
                           smoothedZone4: tempDataProps,
-                          profileData: profileDataProps) {
+                          profileData: profileDataProps,
+                          grid_fill_color: string) {
     return (
         <Box color="text" bg="background"
              sx={{
@@ -31,7 +32,7 @@ export function MainChart(tempData: tempDataProps,
                     data={tempData}
                     barCategoryGap={0}
                     margin={{ top: 0, right: 0, left: 0, bottom: 0 }} >
-                    <CartesianGrid strokeDasharray="4" fill= "#ededef"/>
+                    <CartesianGrid strokeDasharray="4" fill={grid_fill_color}/>
                     <XAxis dataKey="time_ms"
                            label={{ value: 'Time', position: 'bottom'}}
                            domain={["dataMin - 100000", "dataMax + 300000"]}
@@ -43,12 +44,12 @@ export function MainChart(tempData: tempDataProps,
                            label={{ value: 'Temperature',
                                angle: -90,
                                position: 'insideLeft' }}/>
-                    <YAxis yAxisId="right-axis"
-                           orientation="right"
-                           domain={[0, 1]}
-                           label={{ value: 'Heat Factor',
-                               angle: 90,
-                               position: 'insideRight' }}/>
+                    {/*<YAxis yAxisId="right-axis"*/}
+                    {/*       orientation="right"*/}
+                    {/*       domain={[0, 1]}*/}
+                    {/*       label={{ value: 'Heat Factor',*/}
+                    {/*           angle: 90,*/}
+                    {/*           position: 'insideRight' }}/>*/}
                     {/*<Tooltip />yAxisId="right-axis" orientation="right"*/}
                     {/*<Legend verticalAlign="top" height={36}/>*/}
                     {/*<Area yAxisId="right-axis"*/}

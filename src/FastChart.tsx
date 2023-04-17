@@ -6,6 +6,7 @@ import {CartesianGrid,
     Bar,
     BarChart,
     Line,
+    Scatter,
     LineChart,
     ResponsiveContainer,
     Tooltip,
@@ -15,22 +16,14 @@ import moment from "moment/moment";
 import React from "react";
 import { Box } from 'theme-ui'
 import {theme} from './TheTheme'
+import {profileDataProps, tempDataProps, thermocoupleDataProps} from './dataHandler'
 
-type tempDataProps = {
-    time_ms: number;
-    temperature: number;
-    heat_factor: number;
-}[];
-
-function FastChart(tempData: tempDataProps, smoothedTempData: tempDataProps, zone: number) {
-    let temps = tempData.slice(-90)
-    let tempsSmoothed = smoothedTempData.slice(-8)
-
-    // @ts-ignore
-    let chart_fill = theme.colors.modes.dark.contrastbg
-    // @ts-ignore
-    let chart_fill_color = chart_fill.toString()
-    console.debug(chart_fill_color)
+function FastChart(tempData: tempDataProps,
+                   smoothedTempData: tempDataProps,
+                   zone: number,
+                   grid_fill_color: string) {
+    let temps = tempData.slice(-75)
+    let tempsSmoothed = smoothedTempData.slice(-15)
 
     let line_color: string = "#F00";
     let fill_color: string = "rgba(255, 0, 0, 0.5)";
@@ -49,8 +42,7 @@ function FastChart(tempData: tempDataProps, smoothedTempData: tempDataProps, zon
             break;
 
     }
-    // @ts-ignore
-    // @ts-ignore
+
     return (
         <Box color="text" bg="secondary"
              sx={{
@@ -61,7 +53,7 @@ function FastChart(tempData: tempDataProps, smoothedTempData: tempDataProps, zon
                     data={temps}
                     barCategoryGap={0}
                     margin={{ top: 0, right: 0, left: 0, bottom: 0 }} >
-                    <CartesianGrid strokeDasharray="4" fill={chart_fill_color}/>
+                    <CartesianGrid strokeDasharray="4" fill={grid_fill_color}/>
                     <XAxis dataKey="time_ms"
                            label={{ value: 'Time', position: 'bottom'}}
                            domain={["dataMin", "dataMax"]}
@@ -87,6 +79,13 @@ function FastChart(tempData: tempDataProps, smoothedTempData: tempDataProps, zon
                           dataKey="heat_factor"
                           stroke={fill_color}
                           fill={fill_color} />
+                    <Area yAxisId="right-axis"
+                          orientation="right"
+                          isAnimationActive={false}
+                          dataKey="error"
+                          stroke="gold"
+                          fill="gold"
+                    />
                     <Line yAxisId="left-axis"
                           data={temps}
                           type="linear"

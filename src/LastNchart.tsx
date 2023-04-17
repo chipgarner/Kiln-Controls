@@ -35,7 +35,8 @@ export function LastNchart(profileData: profileDataProps,smoothedZone1: tempData
                            smoothedZone2: tempDataProps,
                            smoothedZone3: tempDataProps,
                            smoothedZone4: tempDataProps,
-                           trim?: number
+                           grid_fill_color: string,
+                           trim?: number,
                            ) {
     if (typeof(trim) === "number"){ trim_by = trim };
     return (
@@ -48,7 +49,7 @@ export function LastNchart(profileData: profileDataProps,smoothedZone1: tempData
                     data={profileData}
                     barCategoryGap={0}
                     margin={{top: 0, right: 0, left: 0, bottom: 0}}>
-                    <CartesianGrid strokeDasharray="4" fill="white"/>
+                    <CartesianGrid strokeDasharray="4" fill={grid_fill_color}/>
                     <XAxis dataKey="time_ms"
                            label={{value: 'Time', position: 'bottom'}}
                            domain={["dataMin", "dataMax"]}

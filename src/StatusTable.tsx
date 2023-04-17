@@ -7,7 +7,12 @@ import {handleClickStop, handleClickStart} from "./BackendCalls"
 export type tempRatesProps = {
     state: string,
     zones_status_array: [
-        { temperature: number, slope: number, heat_factor: number, pstdev: number, target: number },
+        { temperature: number,
+            slope: number,
+            heat_factor: number,
+            pstdev: number,
+            target: number,
+            target_slope: number },
         { temperature: number, slope: number, heat_factor: number, pstdev: number },
         { temperature: number, slope: number, heat_factor: number, pstdev: number },
         { temperature: number, slope: number, heat_factor: number, pstdev: number }
@@ -19,7 +24,7 @@ export function initProps() {
     trp = {
         state: 'Not connected',
         zones_status_array: [
-            {temperature: -273, slope: 0, heat_factor: 0, pstdev: 0, target: 0},
+            {temperature: -273, slope: 0, heat_factor: 0, pstdev: 0, target: 0, target_slope: 0 },
             {temperature: -273, slope: 0, heat_factor: 0, pstdev: 0},
             {temperature: -273, slope: 0, heat_factor: 0, pstdev: 0},
             {temperature: -273, slope: 0, heat_factor: 0, pstdev: 0}
@@ -29,6 +34,10 @@ export function initProps() {
 }
 
 function displayZones(kilnState: tempRatesProps) {
+    const redish = "#a11d1d"
+    const bluish = "#6569e6"
+    const greenish = "#098703"
+    const yellowish = "#fcae05"
     let numZones = Object.keys(kilnState.zones_status_array).length
     switch (numZones) {
         case 1:
@@ -46,14 +55,14 @@ function displayZones(kilnState: tempRatesProps) {
             return (
                 <div>
                     <tr>
-                        <td>{labelledNumber('Zone 1', 'Top', 'red')}</td>
+                        <td>{labelledNumber('Zone 1', 'Top', redish)}</td>
                         <td>{labelledNumber('Temperture \u00b0C', Math.round(kilnState.zones_status_array[0].temperature))}</td>
                         <td>{labelledNumber('Slope \u00b0C/hr', Math.round(kilnState.zones_status_array[0].slope))}</td>
                         <td>{labelledNumber('Heat factor %', Math.round(kilnState.zones_status_array[0].heat_factor * 100))}</td>
                         <td>{labelledNumber('Std  deviation', kilnState.zones_status_array[0].pstdev.toFixed(2))}</td>
                     </tr>
                     <tr>
-                        <td>{labelledNumber('Zone 2', 'Bottom', 'blue')}</td>
+                        <td>{labelledNumber('Zone 2', 'Bottom', bluish)}</td>
                         <td>{labelledNumber('Temperture \u00b0C', Math.round(kilnState.zones_status_array[1].temperature))}</td>
                         <td>{labelledNumber('Slope \u00b0C/hr', Math.round(kilnState.zones_status_array[1].slope))}</td>
                         <td>{labelledNumber('Heat factor %', Math.round(kilnState.zones_status_array[1].heat_factor * 100))}</td>
@@ -65,21 +74,21 @@ function displayZones(kilnState: tempRatesProps) {
             return (
                 <div>
                     <tr>
-                        <td>{labelledNumber('Zone 1', 'Top', 'red')}</td>
+                        <td>{labelledNumber('Zone 1', 'Top', redish)}</td>
                         <td>{labelledNumber('Temperture \u00b0C', Math.round(kilnState.zones_status_array[0].temperature))}</td>
                         <td>{labelledNumber('Slope \u00b0C/hr', Math.round(kilnState.zones_status_array[0].slope))}</td>
                         <td>{labelledNumber('Heat factor %', Math.round(kilnState.zones_status_array[0].heat_factor * 100))}</td>
                         <td>{labelledNumber('Std  deviation', kilnState.zones_status_array[0].pstdev.toFixed(2))}</td>
                     </tr>
                     <tr>
-                        <td>{labelledNumber('Zone 2', 'Middle', 'blue')}</td>
+                        <td>{labelledNumber('Zone 2', 'Middle', bluish)}</td>
                         <td>{labelledNumber('Temperture \u00b0C', Math.round(kilnState.zones_status_array[1].temperature))}</td>
                         <td>{labelledNumber('Slope \u00b0C/hr', Math.round(kilnState.zones_status_array[1].slope))}</td>
                         <td>{labelledNumber('Heat factor %', Math.round(kilnState.zones_status_array[1].heat_factor * 100))}</td>
                         <td>{labelledNumber('Std  deviation', kilnState.zones_status_array[1].pstdev.toFixed(2))}</td>
                     </tr>
                     <tr>
-                        <td>{labelledNumber('Zone 3', 'Bottom', 'green')}</td>
+                        <td>{labelledNumber('Zone 3', 'Bottom', greenish)}</td>
                         <td>{labelledNumber('Temperture \u00b0C', Math.round(kilnState.zones_status_array[2].temperature))}</td>
                         <td>{labelledNumber('Slope \u00b0C/hr', Math.round(kilnState.zones_status_array[2].slope))}</td>
                         <td>{labelledNumber('Heat factor %', Math.round(kilnState.zones_status_array[2].heat_factor * 100))}</td>
@@ -91,28 +100,28 @@ function displayZones(kilnState: tempRatesProps) {
             return (
                 <div>
                     <tr>
-                        <td>{labelledNumber('Zone 1', 'Top', 'red')}</td>
+                        <td>{labelledNumber('Zone 1', 'Top', redish)}</td>
                         <td>{labelledNumber('Temperture \u00b0C', Math.round(kilnState.zones_status_array[0].temperature))}</td>
                         <td>{labelledNumber('Slope \u00b0C/hr', Math.round(kilnState.zones_status_array[0].slope))}</td>
                         <td>{labelledNumber('Heat factor %', Math.round(kilnState.zones_status_array[0].heat_factor * 100))}</td>
                         <td>{labelledNumber('Std  deviation', kilnState.zones_status_array[0].pstdev.toFixed(2))}</td>
                     </tr>
                     <tr>
-                        <td>{labelledNumber('Zone 2', 'M Top', 'blue')}</td>
+                        <td>{labelledNumber('Zone 2', 'M Top', bluish)}</td>
                         <td>{labelledNumber('Temperture \u00b0C', Math.round(kilnState.zones_status_array[1].temperature))}</td>
                         <td>{labelledNumber('Slope \u00b0C/hr', Math.round(kilnState.zones_status_array[1].slope))}</td>
                         <td>{labelledNumber('Heat factor %', Math.round(kilnState.zones_status_array[1].heat_factor * 100))}</td>
                         <td>{labelledNumber('Std  deviation', kilnState.zones_status_array[1].pstdev.toFixed(2))}</td>
                     </tr>
                     <tr>
-                        <td>{labelledNumber('Zone 3', 'M Bot', 'green')}</td>
+                        <td>{labelledNumber('Zone 3', 'M Bot', greenish)}</td>
                         <td>{labelledNumber('Temperture \u00b0C', Math.round(kilnState.zones_status_array[2].temperature))}</td>
                         <td>{labelledNumber('Slope \u00b0C/hr', Math.round(kilnState.zones_status_array[2].slope))}</td>
                         <td>{labelledNumber('Heat factor %', Math.round(kilnState.zones_status_array[2].heat_factor * 100))}</td>
                         <td>{labelledNumber('Std  deviation', kilnState.zones_status_array[2].pstdev.toFixed(2))}</td>
                     </tr>
                     <tr>
-                        <td>{labelledNumber('Zone 4', 'Bottom', 'yellow')}</td>
+                        <td>{labelledNumber('Zone 4', 'Bottom', yellowish)}</td>
                         <td>{labelledNumber('Temperture \u00b0C', Math.round(kilnState.zones_status_array[3].temperature))}</td>
                         <td>{labelledNumber('Slope \u00b0C/hr', Math.round(kilnState.zones_status_array[3].slope))}</td>
                         <td>{labelledNumber('Heat factor %', Math.round(kilnState.zones_status_array[3].heat_factor * 100))}</td>
@@ -144,6 +153,7 @@ export function StatusTable(kilnState: tempRatesProps) {
                     <Button onClick={handleClickStart}>Start</Button>
                     {labelledNumber('Status', kilnState.state)}
                     {labelledNumber('Target \u00b0C', Math.round(kilnState.zones_status_array[0].target))}
+                    {labelledNumber('Target Slope \u00b0C/hr', Math.round(kilnState.zones_status_array[0].target_slope))}
                     <Button onClick={handleClickStop}>Stop</Button>
                 </th>
             </tr>
