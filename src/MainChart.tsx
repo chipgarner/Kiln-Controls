@@ -43,7 +43,8 @@ export function MainChart(tempData: tempDataProps,
                     <YAxis yAxisId="left-axis"
                            label={{ value: 'Temperature',
                                angle: -90,
-                               position: 'insideLeft' }}/>
+                               position: 'insideLeft',
+                           }}/>
                     {/*<YAxis yAxisId="right-axis"*/}
                     {/*       orientation="right"*/}
                     {/*       domain={[0, 1]}*/}

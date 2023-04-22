@@ -1,17 +1,17 @@
 import React from "react";
 
-function handleClickStop() {
+export function handleClickStartStop() {
     // Send data to the backend via POST
-    fetch('http://localhost:8081/stop', {
+    fetch('http://localhost:8081/start_stop', {
+        mode: 'no-cors',
         method: 'POST',
     })
 }
 
-function handleClickStart() {
+export function handleClickManualAuto() {
     // Send data to the backend via POST
-    fetch('http://localhost:8081/start', {
+    fetch('http://localhost:8081/manual_auto', {
+        mode: 'no-cors',
         method: 'POST',
     })
 }
-
-export { handleClickStop, handleClickStart};

@@ -18,12 +18,35 @@ import { Box } from 'theme-ui'
 import {theme} from './TheTheme'
 import {profileDataProps, tempDataProps, thermocoupleDataProps} from './dataHandler'
 
+function LastXMinutes(minutes: number, tempData: tempDataProps) {
+    const length = tempData.length
+    console.debug(length)
+    if (length > 9) {
+        const delta_ms = minutes * 60 * 1000
+        console.debug(delta_ms)
+        const time_step = (tempData[length - 1].time_ms - tempData[length - 10].time_ms) / 10
+        console.debug("Timestep: " + time_step)
+        const index = Math.round(delta_ms / time_step)
+        console.debug(index)
+
+        return tempData.slice(-index)
+    } else {
+        return tempData
+    }
+}
+
+
 function FastChart(tempData: tempDataProps,
                    smoothedTempData: tempDataProps,
                    zone: number,
                    grid_fill_color: string) {
-    let temps = tempData.slice(-75)
-    let tempsSmoothed = smoothedTempData.slice(-15)
+    // This means the zone does not exist, don't show anything.
+    if (tempData[0] === undefined) { return(<div/>) };
+
+    let temps = LastXMinutes(1.5, tempData);
+    let tempsSmoothed = LastXMinutes(1.5, smoothedTempData);
+    console.debug(temps)
+    console.debug(tempsSmoothed)
 
     let line_color: string = "#F00";
     let fill_color: string = "rgba(255, 0, 0, 0.5)";
@@ -87,20 +110,20 @@ function FastChart(tempData: tempDataProps,
                           fill="gold"
                     />
                     <Line yAxisId="left-axis"
-                          data={temps}
-                          type="linear"
-                          isAnimationActive={true}
-                          strokeWidth={3}
-                          dataKey="temperature"
-                          stroke={line_color}
-                          dot={false} />
-                    <Line yAxisId="left-axis"
                           data={tempsSmoothed}
                           type="linear"
-                          isAnimationActive={true}
+                          isAnimationActive={false}
                           strokeWidth={3}
                           dataKey="temperature"
                           stroke="#F0F"
+                          dot={false} />
+                    <Line yAxisId="left-axis"
+                          data={temps}
+                          type="linear"
+                          isAnimationActive={false}
+                          strokeWidth={3}
+                          dataKey="temperature"
+                          stroke={line_color}
                           dot={false} />
                 </ComposedChart>
             </ResponsiveContainer>

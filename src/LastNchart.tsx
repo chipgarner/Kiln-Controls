@@ -113,7 +113,7 @@ export function LastNchart(profileData: profileDataProps,smoothedZone1: tempData
                     <Line yAxisId="left-axis"
                           data={trimmed(smoothedZone3)}
                           type="linear"
-                          isAnimationActive={false}
+                          isAnimationActive={true}
                           strokeWidth={3}
                           dataKey="temperature"
                           stroke="#00FF00"
@@ -121,7 +121,7 @@ export function LastNchart(profileData: profileDataProps,smoothedZone1: tempData
                     <Line yAxisId="left-axis"
                           data={trimmed(smoothedZone2)}
                           type="linear"
-                          isAnimationActive={false}
+                          isAnimationActive={true}
                           strokeWidth={3}
                           dataKey="temperature"
                           stroke="#0000FF"
@@ -129,7 +129,7 @@ export function LastNchart(profileData: profileDataProps,smoothedZone1: tempData
                     <Line yAxisId="left-axis"
                           data={trimmed(smoothedZone4)}
                           type="linear"
-                          isAnimationActive={false}
+                          isAnimationActive={true}
                           strokeWidth={3}
                           dataKey="temperature"
                           stroke="#FFFF00"
@@ -137,7 +137,7 @@ export function LastNchart(profileData: profileDataProps,smoothedZone1: tempData
                     <Line yAxisId="left-axis"
                           data={trimmed(smoothedZone1)}
                           type="linear"
-                          isAnimationActive={false}
+                          isAnimationActive={true}
                           strokeWidth={3}
                           dataKey="temperature"
                           stroke="#FF0000"

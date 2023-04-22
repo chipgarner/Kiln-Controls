@@ -35,7 +35,7 @@ export const theme: Theme = {
     colors: {
         text: 'black',
         background: '#898cd6',
-        primary: '#fcf2ae',
+        primary: 'gold',
         secondary: '#cce6ff',
         muted: '#b9b9bb',
         hinted: 'aliceblue',
@@ -43,9 +43,9 @@ export const theme: Theme = {
         border: 'red',
         modes: {
             dark: {
-                text: 'lightgray',
+                text: 'whitesmoke',
                 background: '#440000',
-                primary: '#660000',
+                primary: '#c45403',
                 secondary: '#2d2d86',
                 muted: '#b9b9bb',
                 hinted: '#393a3d',
@@ -56,11 +56,20 @@ export const theme: Theme = {
     },
     buttons: {
         primary: {
-            borderRadius: 0,
+            fontSize: ['9px', 24, 24],
+            fontWeight: 'bold',
+            borderRadius: 6,
             color: 'text',
-            bg: 'gold',
+            bg: 'primary',
+            marginLeft: '2px',
+            marginRight: '2px',
             '&:hover': {
                 bg: 'secondary',
+                border: '3px solid',
+                borderColor: 'primary'
+            },
+            '&:active': {
+                bg: 'red',
             }
         },
     },

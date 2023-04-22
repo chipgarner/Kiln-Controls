@@ -130,7 +130,6 @@ function ColorModeButton() {
 function GridFillColor() {
     // Kludgeorama
     let mode = color_mode
-    console.debug(color_mode)
     let chart_fill = 'gray'
 
     if (mode === 'light') {
