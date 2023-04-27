@@ -56,6 +56,7 @@ function App() {
     const [smoothedZone3, setSmoothedZone3] = useState<tempDataProps>([]);
     const [smoothedZone4, setSmoothedZone4] = useState<tempDataProps>([]);
     const [profileData, setProfile] = useState<profileDataProps>([]);
+    const [profileUpdate, updateProfile] = useState<profileDataProps>([]);
 
     const processMessages = (event: { data: string; }) => {
 
@@ -75,7 +76,12 @@ function App() {
             if (response.profile) {
                 console.log('Incoming profile: ' + response.profile);
                 console.log('Incoming segments: ' + response.profile.segments);
-                setProfile(Profile => [...Profile, ...response.profile.segments]);
+                setProfile(Profile => [Profile, ...response.profile.segments]);
+            }
+            if (response.profile_update) {
+                console.log('Incoming profile: ' + response.profile_update);
+                console.log('Incoming segments: ' + response.profile_update.segments);
+                updateProfile(ProfileUpdate => [ProfileUpdate, ...response.profile_update.segments]);
             }
             if (response.state) {
                 setStatus(state => response)
@@ -101,7 +107,7 @@ function App() {
                 {LastNchart(profileData, smoothedZone1, smoothedZone2, smoothedZone3, smoothedZone4, GridFillColor(), -15)}
             </Grid>
             <Grid gap={1} columns={[1, 1, 2]} margin={1}>
-                {MainChart(smoothedZone1, smoothedZone2, smoothedZone3, smoothedZone4, profileData, GridFillColor())}
+                {MainChart(smoothedZone1, smoothedZone2, smoothedZone3, smoothedZone4, profileData, profileUpdate, GridFillColor())}
                 <Grid gap={1} columns={[1, 2, 2]}>
                     {FastChart(thermocoupleDataZ1, smoothedZone1, 1, GridFillColor())}
                     {FastChart(thermocoupleDataZ2, smoothedZone2, 2, GridFillColor())}

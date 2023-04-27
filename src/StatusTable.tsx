@@ -11,7 +11,7 @@ export type tempRatesProps = {
             slope: number | string,
             heat_factor: number,
             pstdev: number,
-            target: number,
+            target: number | string,
             target_slope: number },
         { temperature: number, slope: number | string, heat_factor: number, pstdev: number },
         { temperature: number, slope: number | string, heat_factor: number, pstdev: number },
@@ -164,7 +164,7 @@ export function StatusTable(kilnState: tempRatesProps) {
                     }}>
                     <Button onClick={handleClickStartStop}>{start_stop}</Button>
                     {labelledNumber('Status', kilnState.state)}
-                    {labelledNumber('Target \u00b0C', Math.round(kilnState.zones_status_array[0].target))}
+                    {labelledNumber('Target \u00b0C', round_or_string(kilnState.zones_status_array[0].target))}
                     {labelledNumber('Target Slope \u00b0C/hr', Math.round(kilnState.zones_status_array[0].target_slope))}
                     <Button onClick={handleClickManualAuto}>Manual</Button>
                 </th>

@@ -19,6 +19,7 @@ export function MainChart(tempData: tempDataProps,
                           smoothedZone3: tempDataProps,
                           smoothedZone4: tempDataProps,
                           profileData: profileDataProps,
+                          profileUpdate: profileDataProps,
                           grid_fill_color: string) {
     return (
         <Box color="text" bg="background"
@@ -85,6 +86,14 @@ export function MainChart(tempData: tempDataProps,
                           type="linear"
                           data={profileData}
                           isAnimationActive={false}
+                          strokeWidth={3}
+                          dataKey="temperature"
+                          stroke="#999999"
+                          dot={false} />
+                    <Line yAxisId="left-axis"
+                          type="linear"
+                          data={profileUpdate}
+                          isAnimationActive={true}
                           strokeWidth={3}
                           dataKey="temperature"
                           stroke="#fcae05"
