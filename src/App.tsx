@@ -24,8 +24,6 @@ console.log(WS_URL)
 let color_mode = 'light'
 
 function App() {
-    // // @ts-ignore
-    // console.debug(theme.colors.contrastbg)
     const {sendJsonMessage, readyState} = useWebSocket(WS_URL, {
         onOpen: () => {
             console.log('WebSocket connection established.');
@@ -38,7 +36,6 @@ function App() {
     });
 
     useEffect(() => {
-        console.log('In useEffect');
         if (readyState === ReadyState.OPEN) {
             sendJsonMessage({});
         }
@@ -62,7 +59,6 @@ function App() {
 
         try {
             const response = JSON.parse(event.data);
-            console.debug(response);
             if (response.thermocouple_data) {
                 setThermocoupleDataZ1(thermocoupleDataZ1 =>
                     [...thermocoupleDataZ1, response.thermocouple_data[0]]);
@@ -74,13 +70,9 @@ function App() {
                     [...thermocoupleDataZ4, response.thermocouple_data[3]]);
             }
             if (response.profile) {
-                console.log('Incoming profile: ' + response.profile);
-                console.log('Incoming segments: ' + response.profile.segments);
                 setProfile(Profile => [Profile, ...response.profile.segments]);
             }
             if (response.profile_update) {
-                console.log('Incoming profile: ' + response.profile_update);
-                console.log('Incoming segments: ' + response.profile_update.segments);
                 updateProfile(ProfileUpdate => [ProfileUpdate, ...response.profile_update.segments]);
             }
             if (response.state) {
@@ -92,8 +84,7 @@ function App() {
                 setSmoothedZone3(smoothedZone3 => [...smoothedZone3, response.zones_status_array[2]]);
                 setSmoothedZone4(smoothedZone4 => [...smoothedZone4, response.zones_status_array[3]]);
             }
-            console.debug(thermocoupleDataZ1)
-            console.debug(smoothedZone1)
+
         } catch (e) {
             console.warn("Not a JSON message " + e);
         }
@@ -103,16 +94,16 @@ function App() {
         <ThemeProvider theme={theme}>
             <Grid gap={1} columns={[1, 1, 3]} margin={1}>
                 {StatusTable(state)}
-                {LastNchart(profileData, smoothedZone1, smoothedZone2, smoothedZone3, smoothedZone4, GridFillColor(), -300)}
-                {LastNchart(profileData, smoothedZone1, smoothedZone2, smoothedZone3, smoothedZone4, GridFillColor(), -15)}
+                {LastNchart(profileUpdate, smoothedZone1, smoothedZone2, smoothedZone3, smoothedZone4, GridFillColor(), -300)}
+                {LastNchart(profileUpdate, smoothedZone1, smoothedZone2, smoothedZone3, smoothedZone4, GridFillColor(), -15)}
             </Grid>
             <Grid gap={1} columns={[1, 1, 2]} margin={1}>
                 {MainChart(smoothedZone1, smoothedZone2, smoothedZone3, smoothedZone4, profileData, profileUpdate, GridFillColor())}
                 <Grid gap={1} columns={[1, 2, 2]}>
-                    {FastChart(thermocoupleDataZ1, smoothedZone1, 1, GridFillColor())}
-                    {FastChart(thermocoupleDataZ2, smoothedZone2, 2, GridFillColor())}
-                    {FastChart(thermocoupleDataZ3, smoothedZone3, 3, GridFillColor())}
-                    {FastChart(thermocoupleDataZ4, smoothedZone4, 4, GridFillColor())}
+                    {FastChart(thermocoupleDataZ1, smoothedZone1, 1, state.manual, GridFillColor())}
+                    {FastChart(thermocoupleDataZ2, smoothedZone2, 2, state.manual, GridFillColor())}
+                    {FastChart(thermocoupleDataZ3, smoothedZone3, 3, state.manual, GridFillColor())}
+                    {FastChart(thermocoupleDataZ4, smoothedZone4, 4, state.manual, GridFillColor())}
                 </Grid>
             </Grid>
             <ColorModeButton/>

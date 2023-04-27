@@ -6,6 +6,7 @@ import {handleClickManualAuto, handleClickStartStop} from "./BackendCalls"
 
 export type tempRatesProps = {
     state: string,
+    manual: boolean,
     zones_status_array: [
         { temperature: number,
             slope: number | string,
@@ -23,6 +24,7 @@ export function initProps() {
     let trp: tempRatesProps
     trp = {
         state: 'Not connected',
+        manual: false,
         zones_status_array: [
             {temperature: -273, slope: 0, heat_factor: 0, pstdev: 0, target: 0, target_slope: 0 },
             {temperature: -273, slope: 0, heat_factor: 0, pstdev: 0},
@@ -144,6 +146,8 @@ export function StatusTable(kilnState: tempRatesProps) {
     let status = kilnState.state;
     let start_stop = "Start";
     if (status === "FIRING") {start_stop = "Stop"}
+    let auto_manual = "Manual"
+    if (kilnState.manual) {auto_manual = "Auto"}
 
     return (
         <table
@@ -166,7 +170,7 @@ export function StatusTable(kilnState: tempRatesProps) {
                     {labelledNumber('Status', kilnState.state)}
                     {labelledNumber('Target \u00b0C', round_or_string(kilnState.zones_status_array[0].target))}
                     {labelledNumber('Target Slope \u00b0C/hr', Math.round(kilnState.zones_status_array[0].target_slope))}
-                    <Button onClick={handleClickManualAuto}>Manual</Button>
+                    <Button onClick={handleClickManualAuto}>{auto_manual}</Button>
                 </th>
             </tr>
             </thead>

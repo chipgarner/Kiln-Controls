@@ -13,10 +13,11 @@ import {CartesianGrid,
     XAxis,
     YAxis} from "recharts";
 import moment from "moment/moment";
-import React from "react";
-import { Box } from 'theme-ui'
+import React, {useState} from "react";
+import { Box, Slider } from 'theme-ui'
 import {theme} from './TheTheme'
 import {profileDataProps, tempDataProps, thermocoupleDataProps} from './dataHandler'
+import {changePowerForZone} from './BackendCalls'
 
 function LastXMinutes(minutes: number, tempData: tempDataProps) {
     const length = tempData.length
@@ -39,14 +40,14 @@ function LastXMinutes(minutes: number, tempData: tempDataProps) {
 function FastChart(tempData: tempDataProps,
                    smoothedTempData: tempDataProps,
                    zone: number,
+                   manual: boolean,
                    grid_fill_color: string) {
     // This means the zone does not exist, don't show anything.
     if (tempData[0] === undefined) { return(<div/>) };
 
     let temps = LastXMinutes(1.5, tempData);
     let tempsSmoothed = LastXMinutes(1.5, smoothedTempData);
-    console.debug(temps)
-    console.debug(tempsSmoothed)
+    let power = temps[temps.length - 1].heat_factor * 100
 
     let line_color: string = "#F00";
     let fill_color: string = "rgba(255, 0, 0, 0.5)";
@@ -64,6 +65,34 @@ function FastChart(tempData: tempDataProps,
             fill_color = "rgba(255, 255, 0, 0.5)";
             break;
 
+    }
+
+    function powerSlider() {
+        if (manual) {
+            return (
+                <Slider
+                    min={0}
+                    max={100}
+                    step={1}
+                    onChange={changePower}
+                />
+            )
+        } else {
+            return (
+                <Slider
+                    min={0}
+                    max={100}
+                    step={1}
+                    value={power}
+                />
+            )
+
+        }
+    }
+
+    function changePower(event: React.ChangeEvent<HTMLInputElement>) {
+        // @ts-ignore
+        changePowerForZone(event.target.value, zone)
     }
 
     return (
@@ -127,8 +156,17 @@ function FastChart(tempData: tempDataProps,
                           dot={false} />
                 </ComposedChart>
             </ResponsiveContainer>
+            {powerSlider()}
+            {/*<input*/}
+            {/*    type='range'*/}
+            {/*    // onChange={changeWidth}*/}
+            {/*    min={0}*/}
+            {/*    max={100}*/}
+            {/*    step={1}*/}
+            {/*    width={'100%'}*/}
+            {/*    value={temps[temps.length - 1].heat_factor * 100}*/}
+            {/*></input>*/}
         </Box>
-
     );}
 
 export default FastChart;
