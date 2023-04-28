@@ -56,7 +56,7 @@ export const theme: Theme = {
     },
     buttons: {
         primary: {
-            fontSize: ['9px', 24, 24],
+            fontSize: ['9px', '30px', '30px'],
             fontWeight: 'bold',
             borderRadius: 6,
             color: 'text',

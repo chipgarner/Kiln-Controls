@@ -1,19 +1,21 @@
 /** @jsxImportSource theme-ui */
 import React, {useState} from "react";
 import labelledNumber from "./labelledeNumber"
-import {ThemeProvider, Button, Switch} from "theme-ui"
+import {ThemeProvider, Button, Switch, Select} from "theme-ui"
 import {handleClickManualAuto, handleClickStartStop} from "./BackendCalls"
 
 export type tempRatesProps = {
     state: string,
     manual: boolean,
     zones_status_array: [
-        { temperature: number,
+        {
+            temperature: number,
             slope: number | string,
             heat_factor: number,
             pstdev: number,
             target: number | string,
-            target_slope: number },
+            target_slope: number
+        },
         { temperature: number, slope: number | string, heat_factor: number, pstdev: number },
         { temperature: number, slope: number | string, heat_factor: number, pstdev: number },
         { temperature: number, slope: number | string, heat_factor: number, pstdev: number }
@@ -26,7 +28,7 @@ export function initProps() {
         state: 'Not connected',
         manual: false,
         zones_status_array: [
-            {temperature: -273, slope: 0, heat_factor: 0, pstdev: 0, target: 0, target_slope: 0 },
+            {temperature: -273, slope: 0, heat_factor: 0, pstdev: 0, target: 0, target_slope: 0},
             {temperature: -273, slope: 0, heat_factor: 0, pstdev: 0},
             {temperature: -273, slope: 0, heat_factor: 0, pstdev: 0},
             {temperature: -273, slope: 0, heat_factor: 0, pstdev: 0}
@@ -35,8 +37,8 @@ export function initProps() {
     return trp
 }
 
-function round_or_string (numstr: number | string) {
-    if (typeof(numstr) === 'number') {
+function round_or_string(numstr: number | string) {
+    if (typeof (numstr) === 'number') {
         // @ts-ignore
         numstr = Math.round(numstr);
     }
@@ -145,9 +147,13 @@ function displayZones(kilnState: tempRatesProps) {
 export function StatusTable(kilnState: tempRatesProps) {
     let status = kilnState.state;
     let start_stop = "Start";
-    if (status === "FIRING") {start_stop = "Stop"}
+    if (status === "FIRING") {
+        start_stop = "Stop"
+    }
     let auto_manual = "Manual"
-    if (kilnState.manual) {auto_manual = "Auto"}
+    if (kilnState.manual) {
+        auto_manual = "Auto"
+    }
 
     return (
         <table
@@ -166,17 +172,32 @@ export function StatusTable(kilnState: tempRatesProps) {
                         justifyContent: 'center',
                         colSpan: 5,
                     }}>
-                    <Button onClick={handleClickStartStop}>{start_stop}</Button>
-                    <Switch onChange={handleClickManualAuto} label="Manual"></Switch>
+                    <Button onClick={handleClickStartStop} sx={{width: '150px'}}>{start_stop}</Button>
+                    <Select defaultValue="Profiles" bg={'secondary'}
+                            sx={{
+                                width: '250px',
+                                fontSize: ['10px', '30px', '30px'],
+                                fontWeight: 'bold',
+                                marginRight: '10px'
+                            }}>
+                        <option>Profiles</option>
+                        <option>Hi</option>
+                        <option>Beep</option>
+                        <option>Boop</option>
+                    </Select>
+                    <Switch onChange={handleClickManualAuto} label="Manual"
+                            sx={{
+                                marginLeft: '10px'
+                            }}></Switch>
                 </th>
             </tr>
             </thead>
             <div>
-            <tr>
-                <td>{labelledNumber('Status', kilnState.state)}</td>
-                <td>{labelledNumber('Target \u00b0C', round_or_string(kilnState.zones_status_array[0].target))}</td>
-                <td>{labelledNumber('Target Slope \u00b0C/hr', Math.round(kilnState.zones_status_array[0].target_slope))}</td>
-            </tr>
+                <tr>
+                    <td>{labelledNumber('Status', kilnState.state)}</td>
+                    <td>{labelledNumber('Target \u00b0C', round_or_string(kilnState.zones_status_array[0].target))}</td>
+                    <td>{labelledNumber('Target Slope \u00b0C/hr', Math.round(kilnState.zones_status_array[0].target_slope))}</td>
+                </tr>
             </div>
             {displayZones(kilnState)}
         </table>
