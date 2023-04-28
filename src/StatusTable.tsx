@@ -1,7 +1,7 @@
 /** @jsxImportSource theme-ui */
 import React, {useState} from "react";
 import labelledNumber from "./labelledeNumber"
-import {ThemeProvider, Button} from "theme-ui"
+import {ThemeProvider, Button, Switch} from "theme-ui"
 import {handleClickManualAuto, handleClickStartStop} from "./BackendCalls"
 
 export type tempRatesProps = {
@@ -167,13 +167,17 @@ export function StatusTable(kilnState: tempRatesProps) {
                         colSpan: 5,
                     }}>
                     <Button onClick={handleClickStartStop}>{start_stop}</Button>
-                    {labelledNumber('Status', kilnState.state)}
-                    {labelledNumber('Target \u00b0C', round_or_string(kilnState.zones_status_array[0].target))}
-                    {labelledNumber('Target Slope \u00b0C/hr', Math.round(kilnState.zones_status_array[0].target_slope))}
-                    <Button onClick={handleClickManualAuto}>{auto_manual}</Button>
+                    <Switch onChange={handleClickManualAuto} label="Manual"></Switch>
                 </th>
             </tr>
             </thead>
+            <div>
+            <tr>
+                <td>{labelledNumber('Status', kilnState.state)}</td>
+                <td>{labelledNumber('Target \u00b0C', round_or_string(kilnState.zones_status_array[0].target))}</td>
+                <td>{labelledNumber('Target Slope \u00b0C/hr', Math.round(kilnState.zones_status_array[0].target_slope))}</td>
+            </tr>
+            </div>
             {displayZones(kilnState)}
         </table>
     );
