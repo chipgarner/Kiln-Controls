@@ -63,6 +63,16 @@ export const theme: Theme = {
             bg: 'primary',
             marginLeft: '2px',
             marginRight: '2px',
+            '&:disabled': {
+                bg: 'muted',
+                '&:hover': {
+                    bg: 'muted',
+                    border: 'none',
+                },
+                '&:active': {
+                    bg: 'muted'
+                }
+            },
             '&:hover': {
                 bg: 'secondary',
                 border: '3px solid',

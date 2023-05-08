@@ -19,3 +19,7 @@ export type profileDataProps = {
     temperature: number;
 }[];
 
+export type profileNamesProps = {
+    name: string;
+}[];
+

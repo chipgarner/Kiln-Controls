@@ -8,7 +8,7 @@ import labelledNumber from "./labelledeNumber"
 import {StatusTable, tempRatesProps, initProps} from "./StatusTable"
 import {ThemeProvider, Grid, Box, Button, Container, useColorMode} from 'theme-ui'
 import {theme} from './TheTheme'
-import {tempDataProps, thermocoupleDataProps, profileDataProps} from './dataHandler'
+import {tempDataProps, thermocoupleDataProps, profileDataProps, profileNamesProps} from './dataHandler'
 // import {ColorModeButton} from "./ColorModeButton"
 
 // Example:  const WS_URL = 'ws://127.0.0.1:8081/status';
@@ -54,11 +54,13 @@ function App() {
     const [smoothedZone4, setSmoothedZone4] = useState<tempDataProps>([]);
     const [profileData, setProfile] = useState<profileDataProps>([]);
     const [profileUpdate, updateProfile] = useState<profileDataProps>([]);
+    const [profileNames, setProfileNames] = useState<profileNamesProps>([{name: 'None'}]);
 
     const processMessages = (event: { data: string; }) => {
 
         try {
             const response = JSON.parse(event.data);
+            // console.debug(response)
             if (response.thermocouple_data) {
                 setThermocoupleDataZ1(thermocoupleDataZ1 =>
                     [...thermocoupleDataZ1, response.thermocouple_data[0]]);
@@ -75,6 +77,13 @@ function App() {
             if (response.profile_update) {
                 updateProfile(ProfileUpdate => [ProfileUpdate, ...response.profile_update.segments]);
             }
+            if (response.profile_names) {
+                console.debug(response)
+                setProfileNames(ProfileNames => [ProfileNames, ...response.profile_names]);
+                console.debug(profileNames)
+                console.debug("Got names !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+            }
+
             if (response.state) {
                 setStatus(state => response)
 
@@ -93,7 +102,7 @@ function App() {
     return (
         <ThemeProvider theme={theme}>
             <Grid gap={1} columns={[1, 1, 3]} margin={1}>
-                {StatusTable(state)}
+                {StatusTable(state, profileNames)}
                 {LastNchart(profileUpdate, smoothedZone1, smoothedZone2, smoothedZone3, smoothedZone4, GridFillColor(), -300)}
                 {LastNchart(profileUpdate, smoothedZone1, smoothedZone2, smoothedZone3, smoothedZone4, GridFillColor(), -15)}
             </Grid>

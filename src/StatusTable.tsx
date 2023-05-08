@@ -2,7 +2,8 @@
 import React, {useState} from "react";
 import labelledNumber from "./labelledeNumber"
 import {ThemeProvider, Button, Switch, Select} from "theme-ui"
-import {handleClickManualAuto, handleClickStartStop} from "./BackendCalls"
+import {handleClickManualAuto, handleClickStartStop, handleProfileSelected} from "./BackendCalls"
+import {profileNamesProps} from "./dataHandler"
 
 export type tempRatesProps = {
     state: string,
@@ -144,11 +145,13 @@ function displayZones(kilnState: tempRatesProps) {
     }
 }
 
-export function StatusTable(kilnState: tempRatesProps) {
+export function StatusTable(kilnState: tempRatesProps, profile_names: profileNamesProps) {
     let status = kilnState.state;
     let start_stop = "Start";
+    let manual_enabled = false;
     if (status === "FIRING") {
-        start_stop = "Stop"
+        start_stop = "Stop";
+        manual_enabled = true;
     }
     let auto_manual = "Manual"
     if (kilnState.manual) {
@@ -173,19 +176,21 @@ export function StatusTable(kilnState: tempRatesProps) {
                         colSpan: 5,
                     }}>
                     <Button onClick={handleClickStartStop} sx={{width: '150px'}}>{start_stop}</Button>
-                    <Select defaultValue="Profiles" bg={'secondary'}
+                    <Select defaultValue="Profiles" onChange={handleProfileSelected} bg={'secondary'}
                             sx={{
                                 width: '250px',
                                 fontSize: ['10px', '30px', '30px'],
                                 fontWeight: 'bold',
                                 marginRight: '10px'
                             }}>
-                        <option>Profiles</option>
-                        <option>Hi</option>
-                        <option>Beep</option>
-                        <option>Boop</option>
+                        {profile_names.map((category) => (
+                            <option>
+                                {category.name}
+                            </option>
+                        ))
+                        }
                     </Select>
-                    <Switch onChange={handleClickManualAuto} label="Manual"
+                    <Switch disabled={manual_enabled} onChange={handleClickManualAuto} label="Manual"
                             sx={{
                                 marginLeft: '10px'
                             }}></Switch>
