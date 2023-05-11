@@ -5,7 +5,7 @@ import {MainChart} from "./MainChart";
 import {LastNchart} from "./LastNchart"
 import FastChart from "./FastChart";
 import labelledNumber from "./labelledeNumber"
-import {StatusTable, tempRatesProps, initProps} from "./StatusTable"
+import {StatusTable, statusProps, tempRatesProps, initProps, initStatusProps} from "./StatusTable"
 import {ThemeProvider, Grid, Box, Button, Container, useColorMode} from 'theme-ui'
 import {theme} from './TheTheme'
 import {tempDataProps, thermocoupleDataProps, profileDataProps, profileNamesProps} from './dataHandler'
@@ -41,7 +41,8 @@ function App() {
         }
     }, [sendJsonMessage, readyState]);
 
-    const [state, setStatus] = useState<tempRatesProps>(initProps)
+    const [status, setStatus] = useState<statusProps>(initStatusProps)
+    const [zonesStatus, setZonesStatus] = useState<tempRatesProps>(initProps)
 
     const [thermocoupleDataZ1, setThermocoupleDataZ1] = useState<thermocoupleDataProps []>([]);
     const [thermocoupleDataZ2, setThermocoupleDataZ2] = useState<thermocoupleDataProps []>([]);
@@ -52,9 +53,10 @@ function App() {
     const [smoothedZone2, setSmoothedZone2] = useState<tempDataProps>([]);
     const [smoothedZone3, setSmoothedZone3] = useState<tempDataProps>([]);
     const [smoothedZone4, setSmoothedZone4] = useState<tempDataProps>([]);
+
     const [profileData, setProfile] = useState<profileDataProps>([]);
     const [profileUpdate, updateProfile] = useState<profileDataProps>([]);
-    const [profileNames, setProfileNames] = useState<profileNamesProps>([{name: 'None'}]);
+    const [profileNames, setProfileNames] = useState<profileNamesProps>([]);
 
     const processMessages = (event: { data: string; }) => {
 
@@ -84,9 +86,11 @@ function App() {
                 console.debug("Got names !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
             }
 
-            if (response.state) {
-                setStatus(state => response)
+            if (response.status)
+                setStatus(status => response.status)
 
+            if (response.zones_status_array) {
+                setZonesStatus(zonesStatus => response)
                 let numZones = response.zones_status_array.length
                 setSmoothedZone1(smoothedZone1 => [...smoothedZone1, response.zones_status_array[0]]);
                 setSmoothedZone2(smoothedZone2 => [...smoothedZone2, response.zones_status_array[1]]);
@@ -102,17 +106,17 @@ function App() {
     return (
         <ThemeProvider theme={theme}>
             <Grid gap={1} columns={[1, 1, 3]} margin={1}>
-                {StatusTable(state, profileNames)}
+                {StatusTable(status, zonesStatus, profileNames)}
                 {LastNchart(profileUpdate, smoothedZone1, smoothedZone2, smoothedZone3, smoothedZone4, GridFillColor(), -300)}
                 {LastNchart(profileUpdate, smoothedZone1, smoothedZone2, smoothedZone3, smoothedZone4, GridFillColor(), -15)}
             </Grid>
             <Grid gap={1} columns={[1, 1, 2]} margin={1}>
                 {MainChart(smoothedZone1, smoothedZone2, smoothedZone3, smoothedZone4, profileData, profileUpdate, GridFillColor())}
                 <Grid gap={1} columns={[1, 2, 2]}>
-                    {FastChart(thermocoupleDataZ1, smoothedZone1, 1, state.manual, GridFillColor())}
-                    {FastChart(thermocoupleDataZ2, smoothedZone2, 2, state.manual, GridFillColor())}
-                    {FastChart(thermocoupleDataZ3, smoothedZone3, 3, state.manual, GridFillColor())}
-                    {FastChart(thermocoupleDataZ4, smoothedZone4, 4, state.manual, GridFillColor())}
+                    {FastChart(thermocoupleDataZ1, smoothedZone1, 1, status.Manual, GridFillColor())}
+                    {FastChart(thermocoupleDataZ2, smoothedZone2, 2, status.Manual, GridFillColor())}
+                    {FastChart(thermocoupleDataZ3, smoothedZone3, 3, status.Manual, GridFillColor())}
+                    {FastChart(thermocoupleDataZ4, smoothedZone4, 4, status.Manual, GridFillColor())}
                 </Grid>
             </Grid>
             <ColorModeButton/>
