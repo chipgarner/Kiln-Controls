@@ -80,10 +80,9 @@ function App() {
                 updateProfile(ProfileUpdate => [ProfileUpdate, ...response.profile_update.segments]);
             }
             if (response.profile_names) {
-                console.debug(response)
                 setProfileNames(ProfileNames => [ProfileNames, ...response.profile_names]);
                 console.debug(profileNames)
-                console.debug("Got names !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                console.debug(response.profile_names)
             }
 
             if (response.status)
