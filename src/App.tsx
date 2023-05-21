@@ -9,7 +9,6 @@ import {StatusTable, statusProps, tempRatesProps, initProps, initStatusProps} fr
 import {ThemeProvider, Grid, Box, Button, Container, useColorMode} from 'theme-ui'
 import {theme} from './TheTheme'
 import {tempDataProps, thermocoupleDataProps, profileDataProps, profileNamesProps} from './dataHandler'
-// import {ColorModeButton} from "./ColorModeButton"
 
 // Example:  const WS_URL = 'ws://127.0.0.1:8081/status';
 // This is needed if the server is running on a different machine than the browser.
@@ -18,7 +17,6 @@ server = server.split(":")[1]
 server = server.split(":")[0]
 console.log(server)
 const WS_URL = 'ws:' + server + ':8081/status';
-// const WS_URL = 'ws://172.20.10.9:8081/status';
 console.log(WS_URL)
 
 let color_mode = 'light'
