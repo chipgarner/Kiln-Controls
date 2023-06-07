@@ -159,9 +159,8 @@ export function StatusTable(kilnStatus: statusProps,
     return (
         <table
             sx={{
-                bg: 'background',
-                border: '5px solid',
-                borderColor: 'secondary',
+                // border: '5px solid',
+                // borderColor: 'secondary',
                 marginLeft: 'auto',
                 marginRight: 'auto'
             }}>

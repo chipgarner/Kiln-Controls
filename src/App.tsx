@@ -103,9 +103,14 @@ function App() {
 
     return (
         <ThemeProvider theme={theme}>
-            <Grid gap={1} columns={[1, 1, 1]} margin={1}>
-                {Controls(status, profileNames)}
+            {Controls(status, profileNames)}
+            <Grid gap={1} columns={[1, 1, 2]} margin={1}>
+
                 {StatusTable(status, zonesStatus)}
+                <Grid gap={1} columns={[1, 2, 2]}>
+                {LastNchart(profileUpdate, smoothedZone1, smoothedZone2, smoothedZone3, smoothedZone4, GridFillColor(), -300)}
+                {LastNchart(profileUpdate, smoothedZone1, smoothedZone2, smoothedZone3, smoothedZone4, GridFillColor(), -15)}
+                </Grid>
             </Grid>
             <Grid gap={1} columns={[1, 1, 2]} margin={1}>
                 {MainChart(smoothedZone1, smoothedZone2, smoothedZone3, smoothedZone4, profileData, profileUpdate, GridFillColor())}
@@ -115,10 +120,6 @@ function App() {
                     {FastChart(thermocoupleDataZ3, smoothedZone3, 3, status.Manual, GridFillColor())}
                     {FastChart(thermocoupleDataZ4, smoothedZone4, 4, status.Manual, GridFillColor())}
                 </Grid>
-            </Grid>
-            <Grid gap={1} columns={[1, 1, 2]} margin={1}>
-                {LastNchart(profileUpdate, smoothedZone1, smoothedZone2, smoothedZone3, smoothedZone4, GridFillColor(), -300)}
-                {LastNchart(profileUpdate, smoothedZone1, smoothedZone2, smoothedZone3, smoothedZone4, GridFillColor(), -15)}
             </Grid>
                 <ColorModeButton/>
         </ThemeProvider>
