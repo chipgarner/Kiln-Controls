@@ -153,15 +153,6 @@ function FastChart(tempData: tempDataProps,
                 </ComposedChart>
             </ResponsiveContainer>
             {powerSlider()}
-            {/*<input*/}
-            {/*    type='range'*/}
-            {/*    // onChange={changeWidth}*/}
-            {/*    min={0}*/}
-            {/*    max={100}*/}
-            {/*    step={1}*/}
-            {/*    width={'100%'}*/}
-            {/*    value={temps[temps.length - 1].heat_factor * 100}*/}
-            {/*></input>*/}
         </Box>
     );}
 

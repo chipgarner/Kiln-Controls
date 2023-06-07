@@ -12,7 +12,6 @@ export type statusProps = {
     'Manual': boolean,
     'ManualDisabled': boolean,
     'ProfileName': string,
-    'ProfileNames': [string],
     'ProfileSelectDisabled': boolean,
 }
 
@@ -25,7 +24,6 @@ export function initStatusProps() {
         'Manual': false,
         'ManualDisabled': true,
         'ProfileName': 'None',
-        'ProfileNames': ['None'],
         'ProfileSelectDisabled': true,
     }
     return sprops
@@ -217,7 +215,7 @@ export function StatusTable(kilnStatus: statusProps,
                                 thumb:{
                                     width: '100px',
                                     height: '100px',
-                                }
+                                },
                             }}></Switch>
                 </th>
             </tr>
@@ -225,6 +223,7 @@ export function StatusTable(kilnStatus: statusProps,
             <div>
                 <tr>
                     <td>{labelledNumber('Status', kilnStatus.label)}</td>
+                    <td>{labelledNumber('Profile', kilnStatus.ProfileName)}</td>
                     <td>{labelledNumber('Target \u00b0C', round_or_string(zonesStatus.zones_status_array[0].target))}</td>
                     <td>{labelledNumber('Target Slope \u00b0C/hr', Math.round(zonesStatus.zones_status_array[0].target_slope))}</td>
                 </tr>
