@@ -54,6 +54,7 @@ export const theme: Theme = {
             },
         },
     },
+
     buttons: {
         primary: {
             fontSize: ['9px', '30px', '30px'],

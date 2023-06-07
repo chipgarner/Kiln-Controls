@@ -2,7 +2,16 @@
 import React from "react";
 import {profileNamesProps, statusProps} from "./dataHandler"
 import {handleClickManualAuto, handleClickStartStop, handleProfileSelected} from "./BackendCalls"
-import {ThemeProvider, Button, Switch, Select} from "theme-ui"
+import {ThemeProvider, Button, Select} from "theme-ui"
+
+function ManualLabel(manual: boolean) {
+    if (manual) {
+        return "Select Auto"
+    }
+    else {
+        return "Select Manual"
+    }
+}
 
 export function Controls(kilnStatus: statusProps,
                          profile_names: profileNamesProps){
@@ -16,12 +25,31 @@ export function Controls(kilnStatus: statusProps,
                     sx={{width: '150px'}}>{kilnStatus.StartStop}</Button>
             <Select disabled={kilnStatus.ProfileSelectDisabled}
                     onChange={handleProfileSelected}
-                    bg={'secondary'}
+                    bg={'primary'}
                     sx={{
-                        width: 'auto',
                         fontSize: ['10px', '30px', '30px'],
                         fontWeight: 'bold',
-                        marginRight: '10px'
+
+                        marginLeft: '2px',
+                        marginRight: '2px',
+                        '&:disabled': {
+                            bg: 'muted',
+                            '&:hover': {
+                                bg: 'muted',
+                                border: 'none',
+                            },
+                            '&:active': {
+                                bg: 'muted'
+                            }
+                        },
+                        '&:hover': {
+                            bg: 'secondary',
+                            border: '3px solid',
+                            borderColor: 'primary'
+                        },
+                        '&:active': {
+                            bg: 'red',
+                        }
                     }}>
                 {profile_names.map((category) => (
                     <option>
@@ -30,19 +58,8 @@ export function Controls(kilnStatus: statusProps,
                 ))
                 }
             </Select>
-            <Switch disabled={kilnStatus.ManualDisabled}
-                    onChange={handleClickManualAuto}
-                    label="Manual"
-                    checked={kilnStatus.Manual}
-                    sx={{
-                        marginLeft: '10px',
-                        width: 100,
-                        height: 36,
-                        thumb:{
-                            width: '100px',
-                            height: '100px',
-                        },
-                    }}></Switch>
+            <Button disabled={kilnStatus.ManualDisabled} onClick={handleClickManualAuto}
+                    sx={{width: '300px'}}>{ManualLabel(kilnStatus.Manual)}</Button>
         </div>
     )
 }
