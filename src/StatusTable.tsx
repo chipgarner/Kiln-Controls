@@ -1,19 +1,7 @@
 /** @jsxImportSource theme-ui */
 import React, {useState} from "react";
 import labelledNumber from "./labelledeNumber"
-import {ThemeProvider, Button, Switch, Select} from "theme-ui"
-import {handleClickManualAuto, handleClickStartStop, handleProfileSelected} from "./BackendCalls"
-import {profileNamesProps} from "./dataHandler"
-
-export type statusProps = {
-    'label': string,
-    'StartStop': string,
-    'StartStopDisabled': boolean,
-    'Manual': boolean,
-    'ManualDisabled': boolean,
-    'ProfileName': string,
-    'ProfileSelectDisabled': boolean,
-}
+import {statusProps} from "./dataHandler"
 
 export function initStatusProps() {
     let sprops: statusProps
@@ -166,8 +154,7 @@ function displayZones(zonesStatus: tempRatesProps) {
 }
 
 export function StatusTable(kilnStatus: statusProps,
-                            zonesStatus: tempRatesProps,
-                            profile_names: profileNamesProps) {
+                            zonesStatus: tempRatesProps) {
 
     return (
         <table
@@ -180,52 +167,17 @@ export function StatusTable(kilnStatus: statusProps,
             }}>
             <thead>
             <tr>
-                <th
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        colSpan: 5,
-                    }}>
-                    <Button disabled={kilnStatus.StartStopDisabled} onClick={handleClickStartStop}
-                            sx={{width: '150px'}}>{kilnStatus.StartStop}</Button>
-                    <Select disabled={kilnStatus.ProfileSelectDisabled}
-                            onChange={handleProfileSelected}
-                            bg={'secondary'}
-                            sx={{
-                                width: '250px',
-                                fontSize: ['10px', '30px', '30px'],
-                                fontWeight: 'bold',
-                                marginRight: '10px'
-                            }}>
-                        {profile_names.map((category) => (
-                            <option>
-                                {category.name}
-                            </option>
-                        ))
-                        }
-                    </Select>
-                    <Switch disabled={kilnStatus.ManualDisabled}
-                            onChange={handleClickManualAuto}
-                            label="Manual"
-                            checked={kilnStatus.Manual}
-                            sx={{
-                                marginLeft: '10px',
-                                width: 100,
-                                height: 36,
-                                thumb:{
-                                    width: '100px',
-                                    height: '100px',
-                                },
-                            }}></Switch>
+                <th>
+                    Status
                 </th>
             </tr>
             </thead>
             <div>
                 <tr>
                     <td>{labelledNumber('Status', kilnStatus.label)}</td>
-                    <td>{labelledNumber('Profile', kilnStatus.ProfileName)}</td>
                     <td>{labelledNumber('Target \u00b0C', round_or_string(zonesStatus.zones_status_array[0].target))}</td>
                     <td>{labelledNumber('Target Slope \u00b0C/hr', Math.round(zonesStatus.zones_status_array[0].target_slope))}</td>
+                    <td>{labelledNumber('Profile', kilnStatus.ProfileName)}</td>
                 </tr>
             </div>
             {displayZones(zonesStatus)}

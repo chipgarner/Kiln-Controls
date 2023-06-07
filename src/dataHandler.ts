@@ -23,3 +23,15 @@ export type profileNamesProps = {
     name: string;
 }[];
 
+
+export type statusProps = {
+    'label': string,
+    'StartStop': string,
+    'StartStopDisabled': boolean,
+    'Manual': boolean,
+    'ManualDisabled': boolean,
+    'ProfileName': string,
+    'ProfileSelectDisabled': boolean,
+}
+
+

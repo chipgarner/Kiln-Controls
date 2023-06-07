@@ -5,10 +5,11 @@ import {MainChart} from "./MainChart";
 import {LastNchart} from "./LastNchart"
 import FastChart from "./FastChart";
 import labelledNumber from "./labelledeNumber"
-import {StatusTable, statusProps, tempRatesProps, initProps, initStatusProps} from "./StatusTable"
+import {StatusTable, tempRatesProps, initProps, initStatusProps} from "./StatusTable"
+import {Controls} from "./Controls"
 import {ThemeProvider, Grid, Box, Button, Container, useColorMode} from 'theme-ui'
 import {theme} from './TheTheme'
-import {tempDataProps, thermocoupleDataProps, profileDataProps, profileNamesProps} from './dataHandler'
+import {tempDataProps, thermocoupleDataProps, profileDataProps, profileNamesProps, statusProps} from './dataHandler'
 
 // Example:  const WS_URL = 'ws://127.0.0.1:8081/status';
 // This is needed if the server is running on a different machine than the browser.
@@ -102,10 +103,9 @@ function App() {
 
     return (
         <ThemeProvider theme={theme}>
-            <Grid gap={1} columns={[1, 1, 3]} margin={1}>
-                {StatusTable(status, zonesStatus, profileNames)}
-                {LastNchart(profileUpdate, smoothedZone1, smoothedZone2, smoothedZone3, smoothedZone4, GridFillColor(), -300)}
-                {LastNchart(profileUpdate, smoothedZone1, smoothedZone2, smoothedZone3, smoothedZone4, GridFillColor(), -15)}
+            <Grid gap={1} columns={[1, 1, 1]} margin={1}>
+                {Controls(status, profileNames)}
+                {StatusTable(status, zonesStatus)}
             </Grid>
             <Grid gap={1} columns={[1, 1, 2]} margin={1}>
                 {MainChart(smoothedZone1, smoothedZone2, smoothedZone3, smoothedZone4, profileData, profileUpdate, GridFillColor())}
@@ -116,7 +116,11 @@ function App() {
                     {FastChart(thermocoupleDataZ4, smoothedZone4, 4, status.Manual, GridFillColor())}
                 </Grid>
             </Grid>
-            <ColorModeButton/>
+            <Grid gap={1} columns={[1, 1, 2]} margin={1}>
+                {LastNchart(profileUpdate, smoothedZone1, smoothedZone2, smoothedZone3, smoothedZone4, GridFillColor(), -300)}
+                {LastNchart(profileUpdate, smoothedZone1, smoothedZone2, smoothedZone3, smoothedZone4, GridFillColor(), -15)}
+            </Grid>
+                <ColorModeButton/>
         </ThemeProvider>
     );
 }
