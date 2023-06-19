@@ -67,8 +67,8 @@ function displayZones(zonesStatus: tempRatesProps) {
                     <tr>
                         <td>{labelledNumber('Temperture \u00b0C', Math.round(zonesStatus.zones_status_array[0].temperature))}</td>
                         <td>{labelledNumber('Slope \u00b0C/hr', round_or_string(zonesStatus.zones_status_array[0].slope))}</td>
+                        <td>{labelledNumber('Std deviation', zonesStatus.zones_status_array[0].pstdev)}</td>
                         <td>{labelledNumber('Heat factor %', Math.round(zonesStatus.zones_status_array[0].heat_factor * 100))}</td>
-                        <td>{labelledNumber('Std  deviation', zonesStatus.zones_status_array[0].pstdev.toFixed(2))}</td>
                     </tr>
                 </div>
             )
@@ -79,15 +79,17 @@ function displayZones(zonesStatus: tempRatesProps) {
                         <td>{labelledNumber('Zone 1', 'Top', redish)}</td>
                         <td>{labelledNumber('Temperture \u00b0C', Math.round(zonesStatus.zones_status_array[0].temperature))}</td>
                         <td>{labelledNumber('Slope \u00b0C/hr', round_or_string(zonesStatus.zones_status_array[0].slope))}</td>
+                        <td>{labelledNumber('Std deviation', zonesStatus.zones_status_array[0].pstdev)}</td>
                         <td>{labelledNumber('Heat factor %', Math.round(zonesStatus.zones_status_array[0].heat_factor * 100))}</td>
-                        <td>{labelledNumber('Std  deviation', zonesStatus.zones_status_array[0].pstdev.toFixed(2))}</td>
+
                     </tr>
                     <tr>
                         <td>{labelledNumber('Zone 2', 'Bottom', bluish)}</td>
                         <td>{labelledNumber('Temperture \u00b0C', Math.round(zonesStatus.zones_status_array[1].temperature))}</td>
                         <td>{labelledNumber('Slope \u00b0C/hr', round_or_string(zonesStatus.zones_status_array[1].slope))}</td>
+                        <td>{labelledNumber('Std deviation', zonesStatus.zones_status_array[1].pstdev)}</td>
                         <td>{labelledNumber('Heat factor %', Math.round(zonesStatus.zones_status_array[1].heat_factor * 100))}</td>
-                        <td>{labelledNumber('Std  deviation', zonesStatus.zones_status_array[1].pstdev.toFixed(2))}</td>
+
                     </tr>
                 </div>
             )
@@ -98,22 +100,25 @@ function displayZones(zonesStatus: tempRatesProps) {
                         <td>{labelledNumber('Zone 1', 'Top', redish)}</td>
                         <td>{labelledNumber('Temperture \u00b0C', Math.round(zonesStatus.zones_status_array[0].temperature))}</td>
                         <td>{labelledNumber('Slope \u00b0C/hr', round_or_string(zonesStatus.zones_status_array[0].slope))}</td>
+                        <td>{labelledNumber('Std deviation', zonesStatus.zones_status_array[0].pstdev)}</td>
                         <td>{labelledNumber('Heat factor %', Math.round(zonesStatus.zones_status_array[0].heat_factor * 100))}</td>
-                        <td>{labelledNumber('Std  deviation', zonesStatus.zones_status_array[0].pstdev.toFixed(2))}</td>
+
                     </tr>
                     <tr>
                         <td>{labelledNumber('Zone 2', 'Middle', bluish)}</td>
                         <td>{labelledNumber('Temperture \u00b0C', Math.round(zonesStatus.zones_status_array[1].temperature))}</td>
                         <td>{labelledNumber('Slope \u00b0C/hr', round_or_string(zonesStatus.zones_status_array[1].slope))}</td>
+                        <td>{labelledNumber('Std deviation', zonesStatus.zones_status_array[1].pstdev)}</td>
                         <td>{labelledNumber('Heat factor %', Math.round(zonesStatus.zones_status_array[1].heat_factor * 100))}</td>
-                        <td>{labelledNumber('Std  deviation', zonesStatus.zones_status_array[1].pstdev.toFixed(2))}</td>
+
                     </tr>
                     <tr>
                         <td>{labelledNumber('Zone 3', 'Bottom', greenish)}</td>
                         <td>{labelledNumber('Temperture \u00b0C', Math.round(zonesStatus.zones_status_array[2].temperature))}</td>
                         <td>{labelledNumber('Slope \u00b0C/hr', round_or_string(zonesStatus.zones_status_array[2].slope))}</td>
+                        <td>{labelledNumber('Std deviation', zonesStatus.zones_status_array[2].pstdev)}</td>
                         <td>{labelledNumber('Heat factor %', Math.round(zonesStatus.zones_status_array[2].heat_factor * 100))}</td>
-                        <td>{labelledNumber('Std  deviation', zonesStatus.zones_status_array[2].pstdev.toFixed(2))}</td>
+
                     </tr>
                 </div>
             )
@@ -124,29 +129,33 @@ function displayZones(zonesStatus: tempRatesProps) {
                         <td>{labelledNumber('Zone 1', 'Top', redish)}</td>
                         <td>{labelledNumber('Temperture \u00b0C', Math.round(zonesStatus.zones_status_array[0].temperature))}</td>
                         <td>{labelledNumber('Slope \u00b0C/hr', round_or_string(zonesStatus.zones_status_array[0].slope))}</td>
+                        <td>{labelledNumber('Std deviation', zonesStatus.zones_status_array[0].pstdev)}</td>
                         <td>{labelledNumber('Heat factor %', Math.round(zonesStatus.zones_status_array[0].heat_factor * 100))}</td>
-                        <td>{labelledNumber('Std  deviation', zonesStatus.zones_status_array[0].pstdev.toFixed(2))}</td>
+
                     </tr>
                     <tr>
                         <td>{labelledNumber('Zone 2', 'M Top', bluish)}</td>
                         <td>{labelledNumber('Temperture \u00b0C', Math.round(zonesStatus.zones_status_array[1].temperature))}</td>
                         <td>{labelledNumber('Slope \u00b0C/hr', round_or_string(zonesStatus.zones_status_array[1].slope))}</td>
+                        <td>{labelledNumber('Std deviation', zonesStatus.zones_status_array[1].pstdev)}</td>
                         <td>{labelledNumber('Heat factor %', Math.round(zonesStatus.zones_status_array[1].heat_factor * 100))}</td>
-                        <td>{labelledNumber('Std  deviation', zonesStatus.zones_status_array[1].pstdev.toFixed(2))}</td>
+
                     </tr>
                     <tr>
                         <td>{labelledNumber('Zone 3', 'M Bot', greenish)}</td>
                         <td>{labelledNumber('Temperture \u00b0C', Math.round(zonesStatus.zones_status_array[2].temperature))}</td>
                         <td>{labelledNumber('Slope \u00b0C/hr', round_or_string(zonesStatus.zones_status_array[2].slope))}</td>
+                        <td>{labelledNumber('Std deviation', zonesStatus.zones_status_array[2].pstdev)}</td>
                         <td>{labelledNumber('Heat factor %', Math.round(zonesStatus.zones_status_array[2].heat_factor * 100))}</td>
-                        <td>{labelledNumber('Std  deviation', zonesStatus.zones_status_array[2].pstdev.toFixed(2))}</td>
+
                     </tr>
                     <tr>
                         <td>{labelledNumber('Zone 4', 'Bottom', yellowish)}</td>
                         <td>{labelledNumber('Temperture \u00b0C', Math.round(zonesStatus.zones_status_array[3].temperature))}</td>
                         <td>{labelledNumber('Slope \u00b0C/hr', round_or_string(zonesStatus.zones_status_array[3].slope))}</td>
+                        <td>{labelledNumber('Std deviation', zonesStatus.zones_status_array[3].pstdev)}</td>
                         <td>{labelledNumber('Heat factor %', Math.round(zonesStatus.zones_status_array[3].heat_factor * 100))}</td>
-                        <td>{labelledNumber('Std  deviation', zonesStatus.zones_status_array[3].pstdev.toFixed(2))}</td>
+
                     </tr>
                 </div>
             )
