@@ -2,7 +2,7 @@
 import React from "react";
 import {profileNamesProps, statusProps} from "./dataHandler"
 import {handleClickManualAuto, handleClickStartStop, handleProfileSelected} from "./BackendCalls"
-import {ThemeProvider, Button, Select} from "theme-ui"
+import {Button, Select} from "theme-ui"
 
 function ManualLabel(manual: boolean) {
     if (manual) {

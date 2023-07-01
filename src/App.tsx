@@ -4,10 +4,9 @@ import useWebSocket, {ReadyState} from 'react-use-websocket';
 import {MainChart} from "./MainChart";
 import {LastNchart} from "./LastNchart"
 import FastChart from "./FastChart";
-import labelledNumber from "./labelledeNumber"
 import {StatusTable, tempRatesProps, initProps, initStatusProps} from "./StatusTable"
 import {Controls} from "./Controls"
-import {ThemeProvider, Grid, Box, Button, Container, useColorMode} from 'theme-ui'
+import {ThemeProvider, Grid, useColorMode} from 'theme-ui'
 import {theme} from './TheTheme'
 import {tempDataProps, thermocoupleDataProps, profileDataProps, profileNamesProps, statusProps} from './dataHandler'
 
@@ -89,7 +88,6 @@ function App() {
 
             if (response.zones_status_array) {
                 setZonesStatus(zonesStatus => response)
-                let numZones = response.zones_status_array.length
                 setSmoothedZone1(smoothedZone1 => [...smoothedZone1, response.zones_status_array[0]]);
                 setSmoothedZone2(smoothedZone2 => [...smoothedZone2, response.zones_status_array[1]]);
                 setSmoothedZone3(smoothedZone3 => [...smoothedZone3, response.zones_status_array[2]]);

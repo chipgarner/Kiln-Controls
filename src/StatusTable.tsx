@@ -1,5 +1,4 @@
 /** @jsxImportSource theme-ui */
-import React, {useState} from "react";
 import labelledNumber from "./labelledeNumber"
 import {statusProps} from "./dataHandler"
 

@@ -1,22 +1,15 @@
 /** @jsxImportSource theme-ui */
 import {CartesianGrid,
     ComposedChart,
-    Legend,
     Area,
-    Bar,
-    BarChart,
     Line,
-    Scatter,
-    LineChart,
     ResponsiveContainer,
     Tooltip,
     XAxis,
     YAxis} from "recharts";
 import moment from "moment/moment";
-import React, {useState} from "react";
 import { Box, Slider } from 'theme-ui'
-import {theme} from './TheTheme'
-import {profileDataProps, tempDataProps, thermocoupleDataProps} from './dataHandler'
+import {tempDataProps} from './dataHandler'
 import {changePowerForZone} from './BackendCalls'
 
 function LastXMinutes(minutes: number, tempData: tempDataProps) {

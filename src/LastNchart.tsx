@@ -3,16 +3,13 @@ import {
     CartesianGrid,
     ComposedChart,
     Area,
-    Bar,
-    BarChart,
     Line,
-    LineChart,
     ResponsiveContainer,
     XAxis,
     YAxis
 } from "recharts";
 import moment from "moment/moment";
-import {Box, Button} from 'theme-ui'
+import {Box} from 'theme-ui'
 import React from "react";
 
 export type tempDataProps = {
