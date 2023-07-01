@@ -95,7 +95,7 @@ function App() {
             }
 
         } catch (e) {
-            console.warn("Not a JSON message " + e);
+            console.warn("Not a JSON message (?) " + e);
         }
     };
 
