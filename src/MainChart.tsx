@@ -2,6 +2,7 @@
 import {CartesianGrid,
     ComposedChart,
     Line,
+    Area,
     ResponsiveContainer,
     XAxis,
     YAxis} from "recharts";
@@ -32,9 +33,9 @@ export function MainChart(tempData: tempDataProps,
                     <CartesianGrid strokeDasharray="4" fill={grid_fill_color}/>
                     <XAxis dataKey="time_ms"
                            label={{ value: 'Time', position: 'bottom'}}
-                           domain={["dataMin - 100000", "dataMax + 300000"]}
-                           allowDataOverflow={false}
-                           tickFormatter = {(unixTime) => moment(unixTime).format('HH:mm')}
+                           domain={["auto", "auto"]}
+                           // allowDataOverflow={false}
+                           tickFormatter = {(unixTime) => moment(unixTime).format('HH.mm')}
                            type="number"
                            includeHidden={true}/>
                     <YAxis yAxisId="left-axis"
@@ -42,42 +43,42 @@ export function MainChart(tempData: tempDataProps,
                                angle: -90,
                                position: 'insideLeft',
                            }}/>
-                    {/*<YAxis yAxisId="right-axis"*/}
-                    {/*       orientation="right"*/}
-                    {/*       domain={[0, 1]}*/}
-                    {/*       label={{ value: 'Heat Factor',*/}
-                    {/*           angle: 90,*/}
-                    {/*           position: 'insideRight' }}/>*/}
+                    <YAxis yAxisId="right-axis"
+                           orientation="right"
+                           domain={[0, 1]}
+                           label={{ value: 'Heat Factor',
+                               angle: 90,
+                               position: 'insideRight' }}/>
                     {/*<Tooltip />yAxisId="right-axis" orientation="right"*/}
                     {/*<Legend verticalAlign="top" height={36}/>*/}
-                    {/*<Area yAxisId="right-axis"*/}
-                    {/*      data={smoothedZone2}*/}
-                    {/*      orientation="right"*/}
-                    {/*      isAnimationActive={false}*/}
-                    {/*      dataKey="heat_factor"*/}
-                    {/*      stroke="rgba(0, 255, 0, 0.5)"*/}
-                    {/*      fill="rgba(0, 255, 0, 0.5)"*/}
-                    {/*/>*/}
-                    {/*<Area yAxisId="right-axis"*/}
-                    {/*      data={smoothedZone3}*/}
-                    {/*      orientation="right"*/}
-                    {/*      isAnimationActive={false}*/}
-                    {/*      dataKey="heat_factor"*/}
-                    {/*      stroke="rgba(100, 100, 255, 0.5)"*/}
-                    {/*      fill="rgba(100, 100, 255, 0.5)"/>*/}
-                    {/*<Area yAxisId="right-axis"*/}
-                    {/*      data={smoothedZone4}*/}
-                    {/*      orientation="right"*/}
-                    {/*      isAnimationActive={false}*/}
-                    {/*      dataKey="heat_factor"*/}
-                    {/*      stroke="rgba(255, 255, 0, 0.5)"*/}
-                    {/*      fill="rgba(255, 255, 0, 0.5)"/>*/}
-                    {/*<Area yAxisId="right-axis"*/}
-                    {/*      orientation="right"*/}
-                    {/*      isAnimationActive={false}*/}
-                    {/*      dataKey="heat_factor"*/}
-                    {/*      stroke="rgba(255, 0, 100, 0.5)"*/}
-                    {/*      fill="rgba(255, 0, 100, 0.5)" />*/}
+                    <Area yAxisId="right-axis"
+                          data={smoothedZone2}
+                          orientation="right"
+                          isAnimationActive={false}
+                          dataKey="heat_factor"
+                          stroke="rgba(0, 255, 0, 0.5)"
+                          fill="rgba(0, 255, 0, 0.5)"
+                    />
+                    <Area yAxisId="right-axis"
+                          data={smoothedZone3}
+                          orientation="right"
+                          isAnimationActive={false}
+                          dataKey="heat_factor"
+                          stroke="rgba(100, 100, 255, 0.5)"
+                          fill="rgba(100, 100, 255, 0.5)"/>
+                    <Area yAxisId="right-axis"
+                          data={smoothedZone4}
+                          orientation="right"
+                          isAnimationActive={false}
+                          dataKey="heat_factor"
+                          stroke="rgba(255, 255, 0, 0.5)"
+                          fill="rgba(255, 255, 0, 0.5)"/>
+                    <Area yAxisId="right-axis"
+                          orientation="right"
+                          isAnimationActive={false}
+                          dataKey="heat_factor"
+                          stroke="rgba(255, 0, 100, 0.5)"
+                          fill="rgba(255, 0, 100, 0.5)" />
                     <Line yAxisId="left-axis"
                           type="linear"
                           data={profileData}

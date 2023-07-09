@@ -1,9 +1,12 @@
 /** @jsxImportSource theme-ui */
 import React from "react";
-import {profileNamesProps, statusProps} from "./dataHandler"
+import {profileNamesProps, profileDataProps, statusProps} from "./dataHandler"
 import {handleClickManualAuto, handleClickStartStop, handleProfileSelected} from "./BackendCalls"
 import {Button, Select} from "theme-ui"
 import ReactModal from 'react-modal';
+import {ProfileChart} from './ProfileChart'
+import {theme} from './TheTheme'
+import {Grid} from 'theme-ui'
 
 function ManualLabel(manual: boolean) {
     if (manual) {
@@ -13,7 +16,7 @@ function ManualLabel(manual: boolean) {
     }
 }
 
-export function Controls(kilnStatus: statusProps,
+export function Controls(kilnStatus: statusProps, profileData: profileDataProps,
                          profile_names: profileNamesProps) {
 
     const [modalIsOpen, setIsOpen] = React.useState(false);
@@ -73,9 +76,11 @@ export function Controls(kilnStatus: statusProps,
             <ReactModal
                 isOpen={modalIsOpen}
                 contentLabel="Minimal Modal Example"
-            >
-
-                <Button onClick={closeModal} sx={{width: '200px'}}>Save</Button>
+                sx={{
+                    display: 'flex',
+                }}>
+                <Grid gap={1} columns={[1, 1, 2]} margin={1}>
+                <Button onClick={closeModal} sx={{width: '300px'}}>Use {kilnStatus.ProfileName} Profile</Button>
 
                 <Select disabled={kilnStatus.ProfileSelectDisabled}
                         onChange={handleProfileSelected}
@@ -83,7 +88,7 @@ export function Controls(kilnStatus: statusProps,
                         sx={{
                             fontSize: ['10px', '30px', '30px'],
                             fontWeight: 'bold',
-
+                            width: '300px',
                             marginLeft: '2px',
                             marginRight: '2px',
                             '&:disabled': {
@@ -105,7 +110,7 @@ export function Controls(kilnStatus: statusProps,
                                 bg: 'red',
                             }
                         }}>
-                    <option value="value" selected>Build new profile</option>
+                    <option value="value" selected>Select Profile</option>
                     {profile_names.slice(1).map((category) => (
                         <option>
                             {category.name}
@@ -113,6 +118,8 @@ export function Controls(kilnStatus: statusProps,
                     ))
                     }
                 </Select>
+                {ProfileChart(profileData, 'white')}
+                </Grid>
             </ReactModal>
 
             <Button disabled={kilnStatus.ManualDisabled} onClick={handleClickManualAuto}
