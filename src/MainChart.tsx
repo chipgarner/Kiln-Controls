@@ -43,42 +43,42 @@ export function MainChart(tempData: tempDataProps,
                                angle: -90,
                                position: 'insideLeft',
                            }}/>
-                    <YAxis yAxisId="right-axis"
-                           orientation="right"
-                           domain={[0, 1]}
-                           label={{ value: 'Heat Factor',
-                               angle: 90,
-                               position: 'insideRight' }}/>
+                    {/*<YAxis yAxisId="right-axis"*/}
+                    {/*       orientation="right"*/}
+                    {/*       domain={[0, 1]}*/}
+                    {/*       label={{ value: 'Heat Factor',*/}
+                    {/*           angle: 90,*/}
+                    {/*           position: 'insideRight' }}/>*/}
                     {/*<Tooltip />yAxisId="right-axis" orientation="right"*/}
                     {/*<Legend verticalAlign="top" height={36}/>*/}
-                    <Area yAxisId="right-axis"
-                          data={smoothedZone2}
-                          orientation="right"
-                          isAnimationActive={false}
-                          dataKey="heat_factor"
-                          stroke="rgba(0, 255, 0, 0.5)"
-                          fill="rgba(0, 255, 0, 0.5)"
-                    />
-                    <Area yAxisId="right-axis"
-                          data={smoothedZone3}
-                          orientation="right"
-                          isAnimationActive={false}
-                          dataKey="heat_factor"
-                          stroke="rgba(100, 100, 255, 0.5)"
-                          fill="rgba(100, 100, 255, 0.5)"/>
-                    <Area yAxisId="right-axis"
-                          data={smoothedZone4}
-                          orientation="right"
-                          isAnimationActive={false}
-                          dataKey="heat_factor"
-                          stroke="rgba(255, 255, 0, 0.5)"
-                          fill="rgba(255, 255, 0, 0.5)"/>
-                    <Area yAxisId="right-axis"
-                          orientation="right"
-                          isAnimationActive={false}
-                          dataKey="heat_factor"
-                          stroke="rgba(255, 0, 100, 0.5)"
-                          fill="rgba(255, 0, 100, 0.5)" />
+                    {/*<Area yAxisId="right-axis"*/}
+                    {/*      data={smoothedZone2}*/}
+                    {/*      orientation="right"*/}
+                    {/*      isAnimationActive={false}*/}
+                    {/*      dataKey="heat_factor"*/}
+                    {/*      stroke="rgba(0, 255, 0, 0.5)"*/}
+                    {/*      fill="rgba(0, 255, 0, 0.5)"*/}
+                    {/*/>*/}
+                    {/*<Area yAxisId="right-axis"*/}
+                    {/*      data={smoothedZone3}*/}
+                    {/*      orientation="right"*/}
+                    {/*      isAnimationActive={false}*/}
+                    {/*      dataKey="heat_factor"*/}
+                    {/*      stroke="rgba(100, 100, 255, 0.5)"*/}
+                    {/*      fill="rgba(100, 100, 255, 0.5)"/>*/}
+                    {/*<Area yAxisId="right-axis"*/}
+                    {/*      data={smoothedZone4}*/}
+                    {/*      orientation="right"*/}
+                    {/*      isAnimationActive={false}*/}
+                    {/*      dataKey="heat_factor"*/}
+                    {/*      stroke="rgba(255, 255, 0, 0.5)"*/}
+                    {/*      fill="rgba(255, 255, 0, 0.5)"/>*/}
+                    {/*<Area yAxisId="right-axis"*/}
+                    {/*      orientation="right"*/}
+                    {/*      isAnimationActive={false}*/}
+                    {/*      dataKey="heat_factor"*/}
+                    {/*      stroke="rgba(255, 0, 100, 0.5)"*/}
+                    {/*      fill="rgba(255, 0, 100, 0.5)" />*/}
                     <Line yAxisId="left-axis"
                           type="linear"
                           data={profileData}

@@ -18,8 +18,8 @@ function ManualLabel(manual: boolean) {
 }
 
 function handleOnClickProfiles(kilnStatus: statusProps, profileData: profileDataProps,
-                               profile_names: profileNamesProps) {
-    return (Profiles(kilnStatus, profileData, profile_names))
+                               profile_names: profileNamesProps, closeModal: React.MouseEventHandler<HTMLButtonElement> | undefined) {
+    return (Profiles(kilnStatus, profileData, profile_names, closeModal))
 }
 
 export function Controls(kilnStatus: statusProps, profileData: profileDataProps,
@@ -30,9 +30,9 @@ export function Controls(kilnStatus: statusProps, profileData: profileDataProps,
         setIsOpen(true);
     }
 
-    // const closeModal = () => {
-    //     setIsOpen(false);
-    // }
+    const closeModal = () => {
+        setIsOpen(false);
+    }
 
     return (
         <div
@@ -47,7 +47,7 @@ export function Controls(kilnStatus: statusProps, profileData: profileDataProps,
             <ReactModal
                 isOpen={modalIsOpen}
                 contentLabel="Profiles">
-                {Profiles(kilnStatus, profileData, profile_names)}
+                {Profiles(kilnStatus, profileData, profile_names, closeModal)}
             </ReactModal>
 
             <Button disabled={kilnStatus.ManualDisabled} onClick={handleClickManualAuto}

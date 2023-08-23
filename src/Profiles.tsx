@@ -5,19 +5,10 @@ import {ProfileChart} from './ProfileChart'
 import {Grid, Button, Select} from 'theme-ui'
 import {profileNamesProps, profileDataProps, statusProps} from "./dataHandler"
 import {handleProfileSelected} from "./BackendCalls"
+// import {Controls} from "./Controls"
 
 export function Profiles(kilnStatus: statusProps, profileData: profileDataProps,
-                         profile_names: profileNamesProps) {
-
-    // TODO this state is in parent also
-    const [modalIsOpen, setIsOpen] = React.useState(false);
-    // const openModal = () => {
-    //     setIsOpen(true);
-    // }
-
-    const closeModal = () => {
-        setIsOpen(false);
-    }
+                         profile_names: profileNamesProps, closeModal: React.MouseEventHandler<HTMLButtonElement> | undefined) {
 
     return (
         <div
