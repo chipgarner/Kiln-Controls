@@ -4,55 +4,65 @@ import {profileDataProps} from './dataHandler'
 import {Text} from "theme-ui"
 import moment from "moment/moment";
 
+export type profilePoints  = {
+    time_ms: number;
+    temperature: number;
+};
+
 function showProfileData(profileData: profileDataProps) {
-    if (profileData.length === 0) {
-        return (
-            <tr>
-                <td>0</td>
-                <td>27</td>
-                <td>Duration</td>
-                <td>End Temp</td>
-                <td>Heating Rate</td>
+
+    if (profileData.length > 2) {
+        let rows = []
+        rows.push(
+            <tr>{fillRow([moment(profileData[0]["time_ms"]).format('HH:mm:ss'),
+                'Ambient',
+                'Unknown',
+                profileData[1]["temperature"],
+                'Unknown'])}
+
             </tr>
         )
-    }
-    else {
-        return (
-            <>
-            <tr>
-                <td>0</td>
-                <td>{profileData[0]["temperature"]}</td>
-                <td>{moment(profileData[2]["time_ms"]).format('HH:mm:ss')}</td>
-                <td>{profileData[1]["temperature"]}</td>
-                <td>{moment(profileData[1]["time_ms"]).format('HH:mm:ss')}</td>
-            </tr>
-        <tr>
-            <td>{moment(profileData[2]["time_ms"]).format('HH:mm:ss')}</td>
-            <td>{profileData[1]["temperature"]}</td>
-            <td>{ms_to_hr_min_sec(profileData[2]["time_ms"] - profileData[1]["time_ms"])}</td>
-            <td>{profileData[2]["temperature"]}</td>
-            <td>{(profileData[2]["temperature"] - profileData[1]["temperature"])/((profileData[2]["time_ms"] - profileData[1]["time_ms"])/3600000)}</td>
-        </tr>
-                </>
-        )
+
+        for (let i = 0; i < profileData.length; i++) {
+            if (i > 1) {
+                rows.push(
+                <tr>
+                    {fillRow(segmentRowFromPoints(profileData[i - 1], profileData[i]))}
+                </tr>
+                )
+            }
+        }
+
+        return rows
     }
 }
+
+function segmentRowFromPoints(time_temp_1: profilePoints, time_temp_2: profilePoints) {
+    let row = [moment(time_temp_2["time_ms"]).format('HH:mm:ss'),
+        time_temp_1["temperature"],
+        ms_to_hr_min_sec(time_temp_2["time_ms"] - time_temp_1["time_ms"]),
+            time_temp_2["temperature"],
+            (time_temp_2["temperature"] - time_temp_1["temperature"])/((time_temp_2["time_ms"] - time_temp_1["time_ms"])/3600000)]
+
+    return row
+}
+
+function fillRow(items: (string|number)[]) {
+    let row = []
+    for (let item of items)
+        row.push(<td
+            sx={{
+                paddingLeft: '15px',
+                paddingRight: '15px'
+            }}>{item}</td>)
+    return row
+
+}
+
 
 export function ProfileTable(profileData: profileDataProps) {
 
     const columnLabels = ['Start Time', 'Start Temp', 'Duration', 'End Temp', 'Heating Rate']
-
-    function fillRow(items: (string|number)[]) {
-        let row = []
-            for (let item of items)
-                row.push(<td
-                    sx={{
-                        paddingLeft: '15px',
-                        paddingRight: '15px'
-                    }}>{item}</td>)
-        return row
-
-    }
 
     return (
         <table
@@ -66,7 +76,7 @@ export function ProfileTable(profileData: profileDataProps) {
             <thead>
             <tr>
                 <th>
-                    Firing Profile
+                    Firing Profile Segments
                 </th>
             </tr>
             </thead>
@@ -76,14 +86,6 @@ export function ProfileTable(profileData: profileDataProps) {
         }}>
             <tr>
                 {fillRow(columnLabels)}
-            </tr>
-            <tr>
-                {fillRow([10, 17, 'something', 222, 6])}
-                {/*{fillRow([moment(profileData[2]["time_ms"]).format('HH:mm:ss'),*/}
-                {/*    profileData[1]["temperature"],*/}
-                {/*    ms_to_hr_min_sec(profileData[2]["time_ms"] - profileData[1]["time_ms"]),*/}
-                {/*    profileData[2]["temperature"],*/}
-                {/*    (profileData[2]["temperature"] - profileData[1]["temperature"])/((profileData[2]["time_ms"] - profileData[1]["time_ms"])/3600000)])}*/}
             </tr>
             {showProfileData(profileData)}
 </tbody>
