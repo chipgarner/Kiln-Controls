@@ -32,9 +32,9 @@ export function MainChart(tempData: tempDataProps,
                     <CartesianGrid strokeDasharray="4" fill={grid_fill_color}/>
                     <XAxis dataKey="time_ms"
                            label={{ value: 'Time', position: 'bottom'}}
-                           domain={["dataMin - 100000", "dataMax + 300000"]}
-                           allowDataOverflow={false}
-                           tickFormatter = {(unixTime) => moment(unixTime).format('HH:mm')}
+                           domain={["auto", "auto"]}
+                           // allowDataOverflow={false}
+                           tickFormatter = {(unixTime) => moment(unixTime).format('HH.mm')}
                            type="number"
                            includeHidden={true}/>
                     <YAxis yAxisId="left-axis"

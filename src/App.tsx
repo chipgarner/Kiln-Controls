@@ -95,13 +95,13 @@ function App() {
             }
 
         } catch (e) {
-            console.warn("Not a JSON message " + e);
+            console.warn("Not a JSON message (?) " + e);
         }
     };
 
     return (
         <ThemeProvider theme={theme}>
-            {Controls(status, profileNames)}
+            {Controls(status, profileUpdate, profileNames)}
             <Grid gap={1} columns={[1, 1, 2]} margin={1}>
 
                 {StatusTable(status, zonesStatus)}
