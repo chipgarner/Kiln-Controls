@@ -1,12 +1,9 @@
 /** @jsxImportSource theme-ui */
 import React from "react";
 import {profileNamesProps, profileDataProps, statusProps} from "./dataHandler"
-import {handleClickManualAuto, handleClickStartStop, handleProfileSelected} from "./BackendCalls"
-import {Button, Select} from "theme-ui"
+import {handleClickManualAuto, handleClickStartStop} from "./BackendCalls"
+import {Button} from "theme-ui"
 import ReactModal from 'react-modal';
-import {ProfileChart} from './ProfileChart'
-import {theme} from './TheTheme'
-import {Grid} from 'theme-ui'
 import {Profiles} from './Profiles'
 
 function ManualLabel(manual: boolean) {
@@ -15,11 +12,6 @@ function ManualLabel(manual: boolean) {
     } else {
         return "Select Manual"
     }
-}
-
-function handleOnClickProfiles(kilnStatus: statusProps, profileData: profileDataProps,
-                               profile_names: profileNamesProps, closeModal: React.MouseEventHandler<HTMLButtonElement> | undefined) {
-    return (Profiles(kilnStatus, profileData, profile_names, closeModal))
 }
 
 export function Controls(kilnStatus: statusProps, profileData: profileDataProps,

@@ -2,7 +2,6 @@
 import {CartesianGrid,
     ComposedChart,
     Line,
-    Area,
     ResponsiveContainer,
     XAxis,
     YAxis} from "recharts";

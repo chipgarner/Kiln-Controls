@@ -19,7 +19,7 @@ export function ProfileChart(
                  padding: '25px',
                  border: '5px solid',
                  borderColor: 'secondary',
-                 width: '80%'
+                 width: '100%'
              }}>
             <ResponsiveContainer width = "100%" aspect={2} >
                 <ComposedChart
