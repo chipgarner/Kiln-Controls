@@ -1,7 +1,6 @@
 /** @jsxImportSource theme-ui */
 import React from "react";
 import {profileDataProps} from './dataHandler'
-import {Text} from "theme-ui"
 import moment from "moment/moment";
 
 export type profilePoints  = {
